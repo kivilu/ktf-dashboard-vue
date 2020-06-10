@@ -1,13 +1,20 @@
 import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
 
-import user from './user'
-import table from './table'
+import user from './modules/user'
+import dic from './modules/dic'
+import menu from './modules/menu'
+import role from './modules/role'
+// --APPEND NEW IMPORT HERE--
 
 const mocks = [
   ...user,
-  ...table
+  ...dic,
+  ...menu,
+  ...role
+  // --APPEND NEW MODULE HERE--
 ]
+// console.log(mocks)
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,
@@ -16,7 +23,7 @@ export function mockXHR() {
   // mock patch
   // https://github.com/nuysoft/Mock/issues/300
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send
-  Mock.XHR.prototype.send = function() {
+  Mock.XHR.prototype.send = function () {
     if (this.custom.xhr) {
       this.custom.xhr.withCredentials = this.withCredentials || false
 
@@ -28,7 +35,7 @@ export function mockXHR() {
   }
 
   function XHR2ExpressReqWrap(respond) {
-    return function(options) {
+    return function (options) {
       let result = null
       if (respond instanceof Function) {
         const { body, type, url } = options
@@ -52,11 +59,13 @@ export function mockXHR() {
 
 // for mock server
 const responseFake = (url, type, respond) => {
+  // console.log('---Mock URL RegExp---')
+  // console.log(url)
   return {
     url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
     type: type || 'get',
     response(req, res) {
-      console.log('request invoke:' + req.path)
+      console.log('mock request invoke:' + req.path)
       res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
     }
   }

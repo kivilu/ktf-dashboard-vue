@@ -3,7 +3,11 @@
   "indent_size": 2,
   "indent_char": " ",
   "jslint_happy": true,
-  "unformatted": [""],
+  "end_with_newline": true,
+  "unformatted": ["script"],
+  "html": {
+    "wrap-attributes": "force-expand-multiline"
+  },
   "css": {
     "indent_size": 2
   }

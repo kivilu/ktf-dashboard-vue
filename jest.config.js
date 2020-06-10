@@ -2,10 +2,10 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
-    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
-      'jest-transform-stub',
+    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.jsx?$': 'babel-jest'
   },
+  moduleDirectories: ['node_modules'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
@@ -20,5 +20,11 @@ module.exports = {
     'lcov',
     'text-summary'
   ],
-  testURL: 'http://localhost/'
+  setupFiles: ['./tests/unit/lib/register-context.js'],
+  // A path to a module which exports an async function that is triggered once before all test suites
+  // 'globalSetup': './tests/unit/lib/global-setup.js',
+
+  // A path to a module which exports an async function that is triggered once after all test suites
+  // 'globalTeardown': './tests/unit/lib/global-teardown.js',
+  testURL: 'http://localhost:9528/'
 }

@@ -63,3 +63,30 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+.pagination-container {
+  margin-top: 30px;
+}
+
+.filter-container {
+  padding-bottom: 10px;
+
+  .filter-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+}
+
+//refine vue-multiselect plugin
+.multiselect {
+  line-height: 16px;
+}
+
+.multiselect--active {
+  z-index: 1000 !important;
+}
+
+.dialog-footer {
+  margin-right: 10px;
+}

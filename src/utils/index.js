@@ -1,6 +1,5 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
+import qs from 'qs'
+import merge from 'lodash/merge'
 
 /**
  * Parse the time to string
@@ -37,7 +36,7 @@ export function parseTime(time, cFormat) {
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ] }
+    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
     return value.toString().padStart(2, '0')
   })
   return time_str
@@ -97,11 +96,68 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-      decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"')
-        .replace(/\+/g, ' ') +
-      '"}'
+    decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') +
+    '"}'
   )
+}
+
+/**
+ * get请求参数处理
+ * @param {*} params 参数对象
+ * @param {*} openDefultParams 是否开启默认参数?
+ */
+export function adornParams(params = {}, openDefultParams = true) {
+  var defaults = {
+    't': new Date().getTime()
+  }
+
+  return openDefultParams ? merge(defaults, params) : params
+}
+
+/**
+ * post请求数据处理
+ * @param {*} data 数据对象
+ * @param {*} contentType 数据格式
+ *  json: 'application/json; charset=utf-8'
+ *  form: 'application/x-www-form-urlencoded; charset=utf-8'
+ */
+export function adornData(data = {}, contentType = 'json') {
+  // return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)
+  return contentType === 'json' ? data : qs.stringify(data)
+}
+
+/**
+ * 读取指定目录下的js module
+ * @param {Array} modulesFiles js files
+ */
+export function jsModules(modulesFiles) {
+  // you do not need `import app from './modules/app'`
+  // it will auto require all vuex module from modules file
+  return modulesFiles.keys().reduce((modules, modulePath) => {
+    // set './app.js' => 'app'
+    const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    const value = modulesFiles(modulePath)
+    modules[moduleName] = value.default
+    return modules
+  }, {})
+}
+
+/**
+ * list===>tree
+ * @param {*} arr  数据list
+ */
+export function list2tree(arr, rootId = '0', props = { id: 'id', pid: 'parentId', children: 'children' }) {
+  var result = []
+  if (!arr || arr.length === 0) { return result }
+
+  const cloneData = JSON.parse(JSON.stringify(arr))
+  result = cloneData.filter(father => {
+    const branchArr = cloneData.filter(child => father[props.id] === child[props.pid])
+    branchArr.length > 0 ? father[props.children] = branchArr : ''
+    return father[props.pid] == rootId
+  })
+
+  // console.log('最终结果' + JSON.stringify(result))
+
+  return result
 }
