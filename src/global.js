@@ -19,8 +19,8 @@ const global = {
     name: '系统管理员',
     key: 1
   }],
-  // 用户状态定义
-  userStatus: [{
+  // KTF状态定义
+  ktfStatus: [{
     tag: 'success',
     name: '正常',
     key: 0

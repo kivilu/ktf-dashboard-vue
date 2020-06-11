@@ -107,13 +107,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
+
     <add-or-update
       v-show="dialogFormVisible"
       ref="addOrUpdate"
@@ -124,28 +118,24 @@
 </template>
 
 <script>
-import { page, remove } from '@/api/dic'
+import { list, remove } from '@/api/dic'
 import { list2tree } from '@/utils'
 import waves from '@/directive/waves' // waves directive
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+
 import AddOrUpdate from './add-or-update'
 export default {
   name: 'SysDic',
-  components: { Pagination, AddOrUpdate },
+  components: { AddOrUpdate },
   directives: { waves },
   filters: {},
   props: {},
   data() {
     return {
       list: [],
-      total: 0,
       listLoading: true,
       listQuery: {
-        keyword: '',
-        page: 1,
-        limit: 20
+        keyword: ''
       },
-      // multipleSelection: [],
       dialogFormVisible: false,
       dialogStatus: 'create'
     }
@@ -157,7 +147,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      page(this.listQuery).then(({ code, msg, data }) => {
+      list(this.listQuery).then(({ code, msg, data }) => {
         if (code === 200) {
           this.list = list2tree(data)
           this.listLoading = false
@@ -166,11 +156,7 @@ export default {
         }
       })
     },
-    // handleSelectionChange(val) {
-    //   this.multipleSelection = val
-    // },
     handleFilter() {
-      this.listQuery.page = 1
       this.getList()
     },
     handleCreate() {

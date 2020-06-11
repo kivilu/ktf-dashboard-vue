@@ -87,9 +87,9 @@ export default [
       }
     }
   },
-  // query dic by page
+  // query all dic
   {
-    url: `${URL.dic.PAGE}`,
+    url: `${URL.dic.LIST}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']

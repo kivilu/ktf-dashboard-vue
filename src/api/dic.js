@@ -38,11 +38,11 @@ export function select(id) {
   })
 }
 /*
- * 分页查找服务
+ * 查找全部内容
  */
-export function page(params) {
+export function list(params) {
   return request({
-    url: url('page'),
+    url: url('list'),
     method: 'get',
     params: adornParams(params)
   })

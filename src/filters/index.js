@@ -90,8 +90,8 @@ export function uppercaseFirst(string) {
  * @param {number} userType 用户类型
  */
 export function userTypeTagFilter(userType) {
-  var type = global.userTypes.filter(type => type.key === userType)[0]
-  return type ? type.tag : 'info'
+  var result = global.userTypes.find(item => item.key === userType)
+  return result ? result.tag : 'info'
 }
 
 /**
@@ -99,24 +99,25 @@ export function userTypeTagFilter(userType) {
  * @param {number} userType 用户类型
  */
 export function userTypeFilter(userType) {
-  var type = global.userTypes.filter(type => type.key === userType)[0]
-  return type ? type.name : userType
+  var result = global.userTypes.find(item => item.key === userType)
+  return result ? result.name : userType
 }
 
 /**
- * 用户状态e-tag标签类型
- * @param {number} status 用户状态
+ * KTF状态e-tag标签类型
+ * @param {number} status 状态值
  */
-export function userStatusTagFilter(status) {
-  var type = global.userStatus.filter(type => type.key === status)[0]
-  return type ? type.tag : 'info'
+export function ktfStatusTagFilter(status) {
+  var result = global.ktfStatus.find(item => item.key === status)
+  return result ? result.tag : 'info'
 }
 
 /**
- * 用户状态描述
- * @param {number} status 用户状态
+ * KTF状态描述
+ * @param {number} status 状态值
  */
-export function userStatusFilter(status) {
-  var type = global.userStatus.filter(type => type.key === status)[0]
-  return type ? type.name : status
+export function ktfStatusFilter(status) {
+  console.log(status)
+  var result = global.ktfStatus.find(item => item.key === status)
+  return result ? result.name : status
 }

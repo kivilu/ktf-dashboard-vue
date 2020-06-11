@@ -3,11 +3,11 @@ import URL from '../../src/api/url'
 import { getUser } from './user'
 
 var datalist = [
-  { id: 1, parentId: 0, name: '系统管理', url: '/sys', icon: 'component' },
-  { id: 2, parentId: 1, name: '字典管理', url: '/sys/dic', icon: 'education' },
-  { id: 3, parentId: 1, name: '菜单管理', url: '/sys/menu', icon: 'tree-table' },
-  { id: 4, parentId: 1, name: '角色管理', url: '/sys/role', icon: 'people' },
-  { id: 5, parentId: 1, name: '用户管理', url: '/sys/user', icon: 'peoples' }
+  { id: 1, parentId: 0, name: '系统管理', url: '/sys', icon: 'component', resourceType: 0, status: 0, seq: 1 },
+  { id: 2, parentId: 1, name: '字典管理', url: '/sys/dic', icon: 'education', resourceType: 1, status: 0, seq: 1 },
+  { id: 3, parentId: 1, name: '菜单管理', url: '/sys/menu', icon: 'tree-table', resourceType: 1, status: 0, seq: 2 },
+  { id: 4, parentId: 1, name: '角色管理', url: '/sys/role', icon: 'people', resourceType: 1, status: 0, seq: 3 },
+  { id: 5, parentId: 1, name: '用户管理', url: '/sys/user', icon: 'peoples', resourceType: 1, status: 0, seq: 4 }
 ]
 
 var permissions = [
@@ -79,9 +79,9 @@ export default [
       }
     }
   },
-  // query menu by page
+  // query all menu
   {
-    url: `${URL.menu.PAGE}`,
+    url: `${URL.menu.LIST}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -101,7 +101,10 @@ export default [
       if (keyword === '') {
         result = datalist
       } else {
-        result = datalist.filter(item => item.varName.includes(keyword))
+        var items = datalist.filter(item => item.name.includes(keyword))
+        var pids = items.map(item => item.parentId)
+        // console.log(pids)
+        result = items.concat(datalist.filter(item => pids.includes(item.id)))
       }
 
       console.log(result)

@@ -32,11 +32,11 @@ export function getInfo(token) {
 }
 
 /*
- * 分页查找服务
+ * 查找全部菜单
  */
-export function page(params) {
+export function list(params) {
   return request({
-    url: url('page'),
+    url: url('list'),
     method: 'get',
     params: adornParams(params)
   })
