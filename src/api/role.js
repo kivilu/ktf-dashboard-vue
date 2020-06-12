@@ -10,7 +10,7 @@ import URL from './url'
  * @returns
  */
 export function url(method) {
-  return URL.menu[method.replace(/([A-Z])/g, '_$1').toUpperCase()]
+  return URL.role[method.replace(/([A-Z])/g, '_$1').toUpperCase()]
 }
 
 /*

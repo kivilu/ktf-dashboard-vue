@@ -10,7 +10,11 @@ const common = {
   CONFIRM: '确定',
   GMT_CREATE: '创建时间',
   GMT_UPDATE: '更新时间',
-  ACTIONS: '操作'
+  ACTIONS: '操作',
+  REFRESH: '刷新',
+  CLOSE: '关闭',
+  CLOSE_OTHERS: '关闭其他',
+  CLOSE_ALL: '关闭全部'
 }
 
 export default common

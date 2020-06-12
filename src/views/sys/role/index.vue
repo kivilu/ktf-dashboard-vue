@@ -132,7 +132,6 @@
 
 <script>
 import { page, remove } from '@/api/role'
-import { list2tree } from '@/utils'
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import AddOrUpdate from './add-or-update'
@@ -164,7 +163,7 @@ export default {
       this.listLoading = true
       page(this.listQuery).then(({ code, msg, data }) => {
         if (code === 200) {
-          this.list = list2tree(data)
+          this.list = data
           this.listLoading = false
         } else {
           this.$message.error(msg)
