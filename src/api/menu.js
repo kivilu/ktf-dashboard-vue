@@ -2,6 +2,23 @@ import request from '@/utils/request'
 import URL from './url'
 import { adornParams, adornData } from '@/utils'
 
+// 菜单类型
+export const menuTypes = [
+  {
+    tag: 'success',
+    name: '目录',
+    key: 0
+  }, {
+    tag: 'primary',
+    name: '菜单',
+    key: 1
+  }, {
+    tag: 'info',
+    name: '按钮',
+    key: 2
+  }
+]
+
 /**
  * 根据函数名获取URL
  *
@@ -23,18 +40,18 @@ export function nav() {
   })
 }
 
-export function getInfo(token) {
+export function getInfo(id) {
   return request({
-    url: url('getInfo'),
+    url: url('getInfo') + `/${id}`,
     method: 'get',
-    params: { token }
+    params: adornParams({})
   })
 }
 
 /*
  * 查找全部菜单
  */
-export function list(params) {
+export function list(params = {}) {
   return request({
     url: url('list'),
     method: 'get',
@@ -68,7 +85,7 @@ export function update(data) {
  *删除
  */
 export function remove(ids) {
-  return ids.length === 1 ? removeOne(ids) : removeBatch(ids)
+  return ids.length === 1 ? removeOne(ids[0]) : removeBatch(ids)
 }
 
 // 批量操作函数

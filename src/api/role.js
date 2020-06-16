@@ -61,7 +61,7 @@ export function update(data) {
  *删除
  */
 export function remove(ids) {
-  return ids.length === 1 ? removeOne(ids) : removeBatch(ids)
+  return ids.length === 1 ? removeOne(ids[0]) : removeBatch(ids)
 }
 
 // 本地函数

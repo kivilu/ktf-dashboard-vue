@@ -174,7 +174,8 @@ export default {
       })
     },
     handleDelete(row, index) {
-      remove(row.id).then(({ code, msg, data }) => {
+      var ids = [row.id]
+      remove(ids).then(({ code, msg, data }) => {
         if (code === 200) {
           this.$message({
             title: '操作成功',

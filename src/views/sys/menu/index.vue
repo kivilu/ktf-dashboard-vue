@@ -102,27 +102,10 @@
 </template>
 
 <script>
-import { list, remove } from '@/api/menu'
+import { list, remove, menuTypes } from '@/api/menu'
 import { list2tree } from '@/utils'
 import waves from '@/directive/waves' // waves directive
 import AddOrUpdate from './add-or-update'
-
-// 菜单类型
-const menuTypes = [
-  {
-    tag: 'success',
-    name: '目录',
-    key: 0
-  }, {
-    tag: 'primary',
-    name: '菜单',
-    key: 1
-  }, {
-    tag: 'info',
-    name: '按钮',
-    key: 3
-  }
-]
 
 export default {
   name: 'SysMenu',
@@ -183,7 +166,8 @@ export default {
       })
     },
     handleDelete(row, index) {
-      remove(row.id).then(({ code, msg, data }) => {
+      var ids = [row.id]
+      remove(ids).then(({ code, msg, data }) => {
         if (code === 200) {
           this.$message({
             title: '操作成功',

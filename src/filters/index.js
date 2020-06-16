@@ -117,7 +117,7 @@ export function ktfStatusTagFilter(status) {
  * @param {number} status 状态值
  */
 export function ktfStatusFilter(status) {
-  console.log(status)
+  // console.log(status)
   var result = global.ktfStatus.find(item => item.key === status)
   return result ? result.name : status
 }

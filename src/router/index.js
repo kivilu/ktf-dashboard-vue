@@ -76,6 +76,7 @@ export function buildDynamicRoutes(menus) {
   const res = []
   menus.forEach(menu => {
     const tmp = { ...menu }
+    if (tmp.url === '') { return true }
     var route = {
       path: tmp.url,
       component: Array.isArray(tmp.children) && tmp.children.length > 0 ? Layout : (_import(`${tmp.url}`.slice(1) + '/index') || null),

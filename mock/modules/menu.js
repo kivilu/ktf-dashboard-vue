@@ -70,7 +70,8 @@ export default [
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 
       console.log('id:' + id)
-      var info = datalist.find(el => el.id === id)
+      var info = datalist.find(el => el.id == id)
+      console.log('info:' + info)
 
       return {
         code: 200,
@@ -107,7 +108,7 @@ export default [
         result = items.concat(datalist.filter(item => pids.includes(item.id)))
       }
 
-      console.log(result)
+      // console.log(result)
 
       return { msg: 'success', code: 200, data: result }
     }
@@ -167,7 +168,14 @@ export default [
           msg: '记录不存在'
         }
       }
-      item = info
+      item.id = info.id
+      item.parentId = info.parentId
+      item.name = info.name
+      item.url = info.url
+      item.icon = info.icon
+      item.resourceType = info.resourceType
+      item.seq = info.seq
+      item.status = info.status
 
       return {
         code: 200,
@@ -198,7 +206,7 @@ export default [
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 
-      var list = datalist.filter(item => (item.id !== id))
+      var list = datalist.filter(item => item.id != id && item.parentId != id)
       // console.log(list)
       datalist = list
 
