@@ -2,10 +2,12 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import ktflable from '@/lable'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 localVue.use(ElementUI)
+localVue.prototype.LB = ktflable
 
 const routes = [
   {

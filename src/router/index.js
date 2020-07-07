@@ -4,7 +4,8 @@ import Router from 'vue-router'
 import Layout from '@/layout'
 import ktflable from '@/lable'
 import { list2tree } from '@/utils'
-import { nav } from '@/api/menu'
+import { nav } from '@/api/permission/menu'
+import { isExternal } from '@/utils/validate'
 
 Vue.use(Router)
 
@@ -76,11 +77,15 @@ export function buildDynamicRoutes(menus) {
   const res = []
   menus.forEach(menu => {
     const tmp = { ...menu }
-    if (tmp.url === '') { return true }
+    var children = tmp.children || []
+    // console.log('children: ' + children.length)
+    // if (tmp.url === '') { return true }
+    var url = '/' + tmp.url
+    // console.log('url:' + url)
     var route = {
-      path: tmp.url,
-      component: Array.isArray(tmp.children) && tmp.children.length > 0 ? Layout : (_import(`${tmp.url}`.slice(1) + '/index') || null),
-      name: tmp.url.replace('/', '-'),
+      path: url,
+      component: children.length > 0 || isExternal(tmp.url) || tmp.url === '' ? Layout : (_import(`${tmp.url}` + '/index') || null),
+      name: url.replace('/', '-'),
       meta: {
         title: tmp.name,
         icon: tmp.icon
@@ -92,7 +97,6 @@ export function buildDynamicRoutes(menus) {
     }
     res.push(route)
   })
-
   return res
 }
 

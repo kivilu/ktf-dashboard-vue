@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "parentId": 0,
+    "name": "一级部门",
+    "abbr": "dft",
+    "corpId": 1,
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08",
+    "status": 0
+  },
+  {
+    "id": 10,
+    "parentId": 1,
+    "name": "二级部门",
+    "abbr": "dft",
+    "corpId": 1,
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08",
+    "status": 0
+  },
+  {
+    "id": 2,
+    "parentId": 0,
+    "name": "市场部",
+    "abbr": "market",
+    "corpId": 2,
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08",
+    "status": 0
+  }
+]

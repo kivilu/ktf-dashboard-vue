@@ -1,11 +1,13 @@
 import Mock from 'mockjs'
-import URL from '../../src/api/url'
-var datalist =[]
+import URL from '../../../src/api/url'
+import { loadjson } from '../util'
+
+var datalist = loadjson('{{name}}.json')
 
 export default [
 // get {{name}} info
 {
-url: `${URL.{{name}}.GET_INFO}\.*`,
+url: `${URL.{{path}}.{{name}}.GET_INFO}\.*`,
 type: 'get',
 response: config => {
 const token = config.headers['x-access-token']
@@ -18,7 +20,7 @@ msg: '没有权限访问'
 }
 }
 
-const key = '/dev-api/sys/{{name}}/info/'
+const key = '/dev-api/{{path}}/{{name}}/info/'
 var tmp = config.url.replace(key, '')
 const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 
@@ -34,7 +36,7 @@ data: info
 },
 // query {{name}} by page
 {
-url: `${URL.{{name}}.PAGE}`,
+url: `${URL.{{path}}.{{name}}.PAGE}`,
 type: 'get',
 response: config => {
 const token = config.headers['x-access-token']
@@ -50,141 +52,154 @@ msg: '没有权限访问'
 console.log(config.query)
 
 var keyword = config.query.keyword || ''
-var result = []
-if (keyword === '') {
-result = datalist
-} else {
-result = datalist.filter(item => item.name.includes(keyword))
-}
+var end = config.query.page * config.query.limit
+var begin = end - config.query.limit
+begin = begin < 0
+  ?
+  0
+  :
+  begin
+  var
+  result=[]
+  if
+  (keyword===''
+  )
+  {
+  result=datalist
+  }
+  else
+  {
+  result=datalist.filter(item=> item.name.includes(keyword)).slice(begin, end)
+    }
 
-console.log(result)
+    console.log(result)
 
-return { msg: 'success', code: 200, data: result }
-}
-},
-// new {{name}}
-{
-url: `${URL.{{name}}.SAVE}`,
-type: 'post',
-response: config => {
-const token = config.headers['x-access-token']
+    return { msg: 'success', code: 200, data: { list: result, total: result.length } }
+    }
+    },
+    // new {{name}}
+    {
+    url: `${URL.{{path}}.{{name}}.SAVE}`,
+    type: 'post',
+    response: config => {
+    const token = config.headers['x-access-token']
 
-// mock error
-if (!token) {
-return {
-code: 403,
-msg: '没有权限访问'
-}
-}
+    // mock error
+    if (!token) {
+    return {
+    code: 403,
+    msg: '没有权限访问'
+    }
+    }
 
-console.log(config.query)
+    console.log(config.query)
 
-var info = config.body
-info.id = Mock.mock('@id')
-info['gmtCreate'] = Mock.mock('@now')
-info['gmtUpdate'] = Mock.mock('@now')
-datalist.push(info)
+    var info = config.body
+    info.id = Mock.mock('@id')
+    info['gmtCreate'] = Mock.mock('@now')
+    info['gmtUpdate'] = Mock.mock('@now')
+    datalist.push(info)
 
-return {
-code: 200,
-msg: '成功',
-data: null
-}
-}
-},
-// update {{name}}
-{
-url: `${URL.{{name}}.UPDATE}`,
-type: 'post',
-response: config => {
-const token = config.headers['x-access-token']
+    return {
+    code: 200,
+    msg: '成功',
+    data: null
+    }
+    }
+    },
+    // update {{name}}
+    {
+    url: `${URL.{{path}}.{{name}}.UPDATE}`,
+    type: 'post',
+    response: config => {
+    const token = config.headers['x-access-token']
 
-// mock error
-if (!token) {
-return {
-code: 403,
-msg: '没有权限访问'
-}
-}
+    // mock error
+    if (!token) {
+    return {
+    code: 403,
+    msg: '没有权限访问'
+    }
+    }
 
-console.log(config.query)
+    console.log(config.query)
 
-var info = config.body
-var item = datalist.find(item => item.id === info.id)
-if (!item) {
-return {
-code: 501,
-msg: '记录不存在'
-}
-}
-item.id = info.id
-item.name = info.name
+    var info = config.body
+    var item = datalist.find(item => item.id === info.id)
+    if (!item) {
+    return {
+    code: 501,
+    msg: '记录不存在'
+    }
+    }
+    item.id = info.id
+    item.name = info.name
 
-return {
-code: 200,
-msg: '成功',
-data: null
-}
-}
-},
-// remove {{name}}
-{
-url: `${URL.{{name}}.DELETE}\.*`,
-type: 'get',
-response: config => {
-const token = config.headers['x-access-token']
+    return {
+    code: 200,
+    msg: '成功',
+    data: null
+    }
+    }
+    },
+    // remove {{name}}
+    {
+    url: `${URL.{{path}}.{{name}}.DELETE}\.*`,
+    type: 'get',
+    response: config => {
+    const token = config.headers['x-access-token']
 
-// mock error
-if (!token) {
-return {
-code: 403,
-msg: '没有权限访问'
-}
-}
+    // mock error
+    if (!token) {
+    return {
+    code: 403,
+    msg: '没有权限访问'
+    }
+    }
 
-console.log(config.query)
+    console.log(config.query)
 
-var turl = config.url
-const key = '/dev-api/sys/{{name}}/delete/'
-var tmp = turl.replace(key, '')
-const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
+    var turl = config.url
+    const key = '/dev-api/{{path}}/{{name}}/delete/'
+    var tmp = turl.replace(key, '')
+    const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 
-var list = datalist.filter(item => (item.id != id ))
-// console.log(list)
-datalist = list
+    var list = datalist.filter(item => (item.id != id ))
+    // console.log(list)
+    datalist = list
 
-return {
-code: 200,
-msg: '成功',
-data: null
-}}
-},
-// batch remove {{name}}
-{
-url: `${URL.{{name}}.DELETE}`,
-type: 'post',
-response: config => {
-const token = config.headers['x-access-token']
+    return {
+    code: 200,
+    msg: '成功',
+    data: null
+    }}
+    },
+    // batch remove {{name}}
+    {
+    url: `${URL.{{path}}.{{name}}.DELETE}`,
+    type: 'post',
+    response: config => {
+    const token = config.headers['x-access-token']
 
-// mock error
-if (!token) {
-return {
-code: 403,
-msg: '没有权限访问'
-}
-}
+    // mock error
+    if (!token) {
+    return {
+    code: 403,
+    msg: '没有权限访问'
+    }
+    }
 
-console.log(config.query)
+    console.log(config.query)
 
-datalist = datalist.filter(item => !config.data.includes(item.id))
-console.log(datalist)
+    datalist = datalist.filter(item => !config.data.includes(item.id))
+    console.log(datalist)
 
-return {
-code: 200,
-msg: '成功',
-data: null
-}
+    return {
+    code: 200,
+    msg: '成功',
+    data: null
+    }
 
-}
-}
-]
+    }
+    }
+    ]

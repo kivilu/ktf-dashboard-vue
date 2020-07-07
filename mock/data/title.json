@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "deptId": 1,
+    "corpId": 1,
+    "deptName": "一级部门",
+    "name": "总经理",
+    "code": "General manager",
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08",
+    "status": 0
+  },
+  {
+    "id": 2,
+    "deptId": 1,
+    "corpId": 1,
+    "deptName": "一级部门",
+    "name": "经理",
+    "code": "manager",
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08",
+    "status": 0
+  }
+]

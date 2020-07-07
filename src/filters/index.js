@@ -1,4 +1,4 @@
-import global from '../global'
+import store from '@/store'
 
 // import parseTime, formatTime and set to filter
 export { parseTime, formatTime } from '@/utils'
@@ -37,33 +37,39 @@ export function timeAgo(time) {
  * @param {number} digits
  */
 export function numberFormatter(num, digits) {
-  const si = [{
-    value: 1E18,
-    symbol: 'E'
-  },
-  {
-    value: 1E15,
-    symbol: 'P'
-  },
-  {
-    value: 1E12,
-    symbol: 'T'
-  },
-  {
-    value: 1E9,
-    symbol: 'G'
-  },
-  {
-    value: 1E6,
-    symbol: 'M'
-  },
-  {
-    value: 1E3,
-    symbol: 'k'
-  }]
+  const si = [
+    {
+      value: 1e18,
+      symbol: 'E'
+    },
+    {
+      value: 1e15,
+      symbol: 'P'
+    },
+    {
+      value: 1e12,
+      symbol: 'T'
+    },
+    {
+      value: 1e9,
+      symbol: 'G'
+    },
+    {
+      value: 1e6,
+      symbol: 'M'
+    },
+    {
+      value: 1e3,
+      symbol: 'k'
+    }
+  ]
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {
-      return (num / si[i].value + 0.1).toFixed(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol
+      return (
+        (num / si[i].value + 0.1)
+          .toFixed(digits)
+          .replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol
+      )
     }
   }
   return num.toString()
@@ -74,7 +80,9 @@ export function numberFormatter(num, digits) {
  * @param {number} num
  */
 export function toThousandFilter(num) {
-  return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  return (+num || 0)
+    .toString()
+    .replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
 
 /**
@@ -90,7 +98,10 @@ export function uppercaseFirst(string) {
  * @param {number} userType 用户类型
  */
 export function userTypeTagFilter(userType) {
-  var result = global.userTypes.find(item => item.key === userType)
+  // console.log(store)
+  var result = store.getters.settings.userTypes.find(
+    item => item.key === userType
+  )
   return result ? result.tag : 'info'
 }
 
@@ -99,7 +110,9 @@ export function userTypeTagFilter(userType) {
  * @param {number} userType 用户类型
  */
 export function userTypeFilter(userType) {
-  var result = global.userTypes.find(item => item.key === userType)
+  var result = store.getters.settings.userTypes.find(
+    item => item.key === userType
+  )
   return result ? result.name : userType
 }
 
@@ -108,7 +121,9 @@ export function userTypeFilter(userType) {
  * @param {number} status 状态值
  */
 export function ktfStatusTagFilter(status) {
-  var result = global.ktfStatus.find(item => item.key === status)
+  var result = store.getters.settings.ktfStatus.find(
+    item => item.key === status
+  )
   return result ? result.tag : 'info'
 }
 
@@ -118,6 +133,8 @@ export function ktfStatusTagFilter(status) {
  */
 export function ktfStatusFilter(status) {
   // console.log(status)
-  var result = global.ktfStatus.find(item => item.key === status)
+  var result = store.getters.settings.ktfStatus.find(
+    item => item.key === status
+  )
   return result ? result.name : status
 }

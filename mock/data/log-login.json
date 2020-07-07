@@ -1,0 +1,102 @@
+[
+    {
+        "userName": "超级管理员",
+        "loginName": "system",
+        "userType": 0,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "127.0.0.1",
+        "result": "成功",
+        "gmtCreate": "2020-06-16T18:57:33.374"
+    },
+    {
+        "userName": "超级管理员",
+        "loginName": "system",
+        "userType": 0,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "127.0.0.1",
+        "result": "成功",
+        "gmtCreate": "2020-06-16T18:32:17.574"
+    },
+    {
+        "userName": "密钥操作员",
+        "loginName": "operator_key",
+        "userType": 3,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "127.0.0.1",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T18:29:03.084"
+    },
+    {
+        "userName": "密钥操作员",
+        "loginName": "operator_key",
+        "userType": 3,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T18:11:10.778"
+    },
+    {
+        "userName": "密钥操作员",
+        "loginName": "operator_key",
+        "userType": 3,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T14:30:58.444"
+    },
+    {
+        "userName": "超级管理员",
+        "loginName": "system",
+        "userType": 0,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T14:24:37.552"
+    },
+    {
+        "userName": "超级管理员",
+        "loginName": "system",
+        "userType": 0,
+        "type": 0,
+        "operation": "用户退出",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T14:23:23.935"
+    },
+    {
+        "userName": "超级管理员",
+        "loginName": "system",
+        "userType": 0,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T14:22:44.62"
+    },
+    {
+        "userName": "审计员",
+        "loginName": "auditor",
+        "userType": 6,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "成功",
+        "gmtCreate": "2020-06-02T13:53:39.946"
+    },
+    {
+        "userName": "审计员",
+        "loginName": "auditor",
+        "userType": 6,
+        "type": 0,
+        "operation": "用户登录",
+        "clientIp": "192.168.8.100",
+        "result": "首次访问",
+        "gmtCreate": "2020-06-02T13:53:07.856"
+    }
+]

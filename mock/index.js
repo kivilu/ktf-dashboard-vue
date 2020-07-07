@@ -1,17 +1,29 @@
 import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
 
-import user from './modules/user'
-import dic from './modules/dic'
-import menu from './modules/menu'
-import role from './modules/role'
+import user from './modules/permission/user'
+import dic from './modules/sys/dic'
+import menu from './modules/permission/menu'
+import role from './modules/permission/role'
+import corp from './modules/org/corp'
+import dept from './modules/org/dept'
+import title from './modules/org/title'
+import log from './modules/sys/log'
+import industry from './modules/sys/industry'
+import region from './modules/sys/region'
 // --APPEND NEW IMPORT HERE--
 
 const mocks = [
   ...user,
   ...dic,
   ...menu,
-  ...role
+  ...role,
+  ...corp,
+  ...dept,
+  ...title,
+  ...log,
+  ...industry,
+  ...region
   // --APPEND NEW MODULE HERE--
 ]
 // console.log(mocks)
@@ -23,7 +35,7 @@ export function mockXHR() {
   // mock patch
   // https://github.com/nuysoft/Mock/issues/300
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send
-  Mock.XHR.prototype.send = function () {
+  Mock.XHR.prototype.send = function() {
     if (this.custom.xhr) {
       this.custom.xhr.withCredentials = this.withCredentials || false
 
@@ -35,7 +47,7 @@ export function mockXHR() {
   }
 
   function XHR2ExpressReqWrap(respond) {
-    return function (options) {
+    return function(options) {
       let result = null
       if (respond instanceof Function) {
         const { body, type, url } = options
@@ -53,7 +65,11 @@ export function mockXHR() {
   }
 
   for (const i of mocks) {
-    Mock.mock(new RegExp(i.url), i.type || 'get', XHR2ExpressReqWrap(i.response))
+    Mock.mock(
+      new RegExp(i.url),
+      i.type || 'get',
+      XHR2ExpressReqWrap(i.response)
+    )
   }
 }
 
@@ -66,7 +82,9 @@ const responseFake = (url, type, respond) => {
     type: type || 'get',
     response(req, res) {
       console.log('mock request invoke:' + req.path)
-      res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+      res.json(
+        Mock.mock(respond instanceof Function ? respond(req, res) : respond)
+      )
     }
   }
 }

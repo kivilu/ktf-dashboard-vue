@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "默认企业",
+    "prefix": "dft",
+    "abbr": "dft",
+    "uscc": "20181218",
+    "type": 2,
+    "appId": 0,
+    "industryId": 7365,
+    "industryName": "",
+    "regionIds": "860511010001000",
+    "region": "",
+    "mainPerson": "联系人",
+    "mainPersonMobile": "13800100500",
+    "mainPersonEmail": "test@126.com",
+    "address": "测试地址",
+    "zipCode": "430071",
+    "status": 0
+  }
+]

@@ -1,11 +1,11 @@
 const api = process.env.VUE_APP_BASE_REQUEST
 
 const {{name}} = {
-GET_INFO: `${api}/sys/{{name}}/info`,
-PAGE: `${api}/sys/{{name}}/page`,
-SAVE: `${api}/sys/{{name}}/save`,
-UPDATE: `${api}/sys/{{name}}/update`,
-DELETE: `${api}/sys/{{name}}/delete`
+GET_INFO: `${api}/{{path}}/{{name}}/info`,
+PAGE: `${api}/{{path}}/{{name}}/page`,
+SAVE: `${api}/{{path}}/{{name}}/save`,
+UPDATE: `${api}/{{path}}/{{name}}/update`,
+DELETE: `${api}/{{path}}/{{name}}/delete`
 }
 
 exports.{{name}} = {{name}}

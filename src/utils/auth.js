@@ -23,6 +23,7 @@ export function removeToken() {
  * @returns
  */
 export function isAccess(module, method) {
+  // console.log(module)
   // todo 添加代码
   return true
 }

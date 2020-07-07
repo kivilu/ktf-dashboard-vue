@@ -14,7 +14,7 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-import global from '@/global'
+// import global from '@/global'
 import ktflable from '@/lable'
 import { isAccess } from '@/utils/auth'
 import * as filters from './filters' // global filters
@@ -42,11 +42,13 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
+// console.log(store.getters.settings)
+
 Vue.prototype.isAccess = isAccess // 权限方法
-Vue.prototype.global = global
+Vue.prototype.STS = store.getters.settings
 Vue.prototype.LB = ktflable
-Vue.prototype.PAGE_SIZES = global.pageSizes // 每页显示个数选择器的选项设置
-Vue.prototype.DLG_WIDTH = global.dialogWidth // 对话框默认宽度
+Vue.prototype.PAGE_SIZES = store.getters.settings.pageSizes // 每页显示个数选择器的选项设置
+Vue.prototype.DLG_WIDTH = store.getters.settings.dialogWidth // 对话框默认宽度
 
 Vue.config.productionTip = false
 

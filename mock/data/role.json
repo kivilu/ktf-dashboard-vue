@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "name": "system",
+    "orgId": 1,
+    "seq": 1,
+    "description": "超级管理员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-05-25T10:29:37",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "4",
+    "name": "admin_sys",
+    "orgId": 1,
+    "seq": 2,
+    "description": "系统管理员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-06-02T12:40:43",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "5",
+    "name": "admin_biz",
+    "orgId": 1,
+    "seq": 3,
+    "description": "业务管理员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-06-02T12:40:58",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "6",
+    "name": "operator_key",
+    "orgId": 1,
+    "seq": 4,
+    "description": "密钥操作员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-04-24T16:29:19",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "7",
+    "name": "reviewer_key",
+    "orgId": 1,
+    "seq": 5,
+    "description": "密钥审核员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-04-24T16:29:46",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "8",
+    "name": "admin_audit",
+    "orgId": 1,
+    "seq": 6,
+    "description": "审计管理员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-06-02T12:41:26",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "9",
+    "name": "auditor",
+    "orgId": 1,
+    "seq": 7,
+    "description": "审计员",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-04-24T16:30:11",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  },
+  {
+    "id": "10",
+    "name": "api",
+    "orgId": 1,
+    "seq": 8,
+    "description": "API用户角色",
+    "status": 0,
+    "createUserId": "1",
+    "gmtCreate": "2020-04-07T11:11:28",
+    "gmtUpdate": "2020-06-20 17:18:08"
+  }
+]

@@ -2,13 +2,30 @@ import qs from 'qs'
 import merge from 'lodash/merge'
 
 /**
+ * 类型转换
+ * @param {*} value
+ * @param {*} dstType
+ */
+export function typeConvert(value, dstType) {
+  if (typeof dstType === 'string') {
+    return String(value)
+  } else if (typeof dstType === 'boolean') {
+    return value !== 'false'
+  } else if (typeof dstType === 'number') {
+    return Number(value)
+  }
+
+  return value
+}
+
+/**
  * Parse the time to string
  * @param {(Object|string|number)} time
  * @param {string} cFormat
  * @returns {string | null}
  */
 export function parseTime(time, cFormat) {
-  if (arguments.length === 0) {
+  if (!time) {
     return null
   }
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
@@ -16,10 +33,10 @@ export function parseTime(time, cFormat) {
   if (typeof time === 'object') {
     date = time
   } else {
-    if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
+    if (typeof time === 'string' && /^[0-9]+$/.test(time)) {
       time = parseInt(time)
     }
-    if ((typeof time === 'number') && (time.toString().length === 10)) {
+    if (typeof time === 'number' && time.toString().length === 10) {
       time = time * 1000
     }
     date = new Date(time)
@@ -36,7 +53,9 @@ export function parseTime(time, cFormat) {
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
+    if (key === 'a') {
+      return ['日', '一', '二', '三', '四', '五', '六'][value]
+    }
     return value.toString().padStart(2, '0')
   })
   return time_str
@@ -96,8 +115,12 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-    decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') +
-    '"}'
+      decodeURIComponent(search)
+        .replace(/"/g, '\\"')
+        .replace(/&/g, '","')
+        .replace(/=/g, '":"')
+        .replace(/\+/g, ' ') +
+      '"}'
   )
 }
 
@@ -108,7 +131,7 @@ export function param2Obj(url) {
  */
 export function adornParams(params = {}, openDefultParams = true) {
   var defaults = {
-    't': new Date().getTime()
+    t: new Date().getTime()
   }
 
   return openDefultParams ? merge(defaults, params) : params
@@ -146,18 +169,50 @@ export function jsModules(modulesFiles) {
  * list===>tree
  * @param {*} arr  数据list
  */
-export function list2tree(arr, rootId = '0', props = { id: 'id', pid: 'parentId', children: 'children' }) {
+export function list2tree(
+  arr,
+  rootId = '0',
+  props = { id: 'id', pid: 'parentId', children: 'children' }
+) {
   var result = []
-  if (!arr || arr.length === 0) { return result }
+  if (!arr || arr.length === 0) {
+    return result
+  }
 
   const cloneData = JSON.parse(JSON.stringify(arr))
   result = cloneData.filter(father => {
-    const branchArr = cloneData.filter(child => father[props.id] === child[props.pid])
-    branchArr.length > 0 ? father[props.children] = branchArr : ''
+    const branchArr = cloneData.filter(
+      child => father[props.id] === child[props.pid]
+    )
+    if (branchArr.length > 0) {
+      father[props.children] = branchArr
+      father['hasChildren'] = true
+    } else {
+      father[props.children] = ''
+    }
+
     return father[props.pid] == rootId
   })
 
   // console.log('最终结果' + JSON.stringify(result))
 
   return result
+}
+
+export function childrenOfTree(tree, id) {
+  if (!tree) {
+    return null
+  }
+
+  var element = tree.find(item => item.id === id)
+  if (element) {
+    return element.children
+  }
+
+  tree.forEach(item => {
+    var children = childrenOfTree(item.children, id)
+    if (children) {
+      return children
+    }
+  })
 }

@@ -40,6 +40,13 @@
       fit
       highlight-current-row
       style="width: 100%"
+      lazy
+      :load="load"
+      :tree-props="{
+        name: 'varName',
+        children: 'children',
+        hasChildren: 'hasChildren'
+      }"
     >
       <!-- <el-table-column type="selection" align="center" />
       <el-table-column :label="LB.common.ID" prop="id" align="center" width="80px">
@@ -48,21 +55,20 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column
-        label="变量名称"
-        align="left"
-        width="300px"
-      >
-        <template slot-scope="{row}">
+      <el-table-column label="变量名称" align="left" width="300px">
+        <template slot-scope="{ row }">
           <span>{{ row.varName }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="变量代码"
-        align="center"
-      >
-        <template slot-scope="{row}">
+      <el-table-column label="变量代码" align="center">
+        <template slot-scope="{ row }">
           <span>{{ row.varCode }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="变量值" align="center">
+        <template slot-scope="{ row }">
+          <span>{{ row.varValue }}</span>
         </template>
       </el-table-column>
 
@@ -71,7 +77,7 @@
         width="155px"
         align="center"
       >
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.gmtCreate | parseTime() }}</span>
         </template>
       </el-table-column>
@@ -80,34 +86,39 @@
         width="155px"
         align="center"
       >
-        <template slot-scope="{row}">
+        <template slot-scope="{ row }">
           <span>{{ row.gmtUpdate | parseTime() }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column
-        align="center"
-        :label="LB.common.ACTIONS"
-        width="120"
-      >
-        <template slot-scope="{row,$index}">
+      <el-table-column align="center" :label="LB.common.ACTIONS" width="120">
+        <template slot-scope="{ row, $index }">
           <el-button
-            v-if="isAccess('dic','update')"
+            v-if="isAccess(module, 'update')"
             type="text"
             size="small"
             @click="handleUpdate(row)"
           >
-            <i class="el-icon-edit" /></el-button>
+            <i class="el-icon-edit" />
+          </el-button>
           <el-button
-            v-if="isAccess('dic','delete')"
+            v-if="isAccess(module, 'delete')"
             type="text"
             size="small"
-            @click="handleDelete(row,$index )"
-          ><i class="el-icon-delete" /></el-button>
+            @click="handleDelete(row, $index)"
+          >
+            <i class="el-icon-delete" />
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    />
     <add-or-update
       v-show="dialogFormVisible"
       ref="addOrUpdate"
@@ -118,39 +129,67 @@
 </template>
 
 <script>
-import { list, remove } from '@/api/dic'
-import { list2tree } from '@/utils'
+import { page, remove, getChildren } from '@/api/sys/dic'
+import { list2tree, childrenOfTree } from '@/utils'
 import waves from '@/directive/waves' // waves directive
-
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import AddOrUpdate from './add-or-update'
 export default {
   name: 'SysDic',
-  components: { AddOrUpdate },
+  components: { Pagination, AddOrUpdate },
   directives: { waves },
   filters: {},
   props: {},
   data() {
     return {
       list: [],
+      total: 0,
       listLoading: true,
       listQuery: {
-        keyword: ''
+        keyword: '',
+        pid: 0,
+        page: 1,
+        limit: 20
       },
       dialogFormVisible: false,
       dialogStatus: 'create'
     }
   },
+  computed: {
+    module: {
+      get() {
+        return 'sys/dic'
+      }
+    }
+  },
   created() {
     this.getList()
   },
-  mounted() { },
+  mounted() {},
   methods: {
     getList() {
       this.listLoading = true
-      list(this.listQuery).then(({ code, msg, data }) => {
+      page(this.listQuery).then(({ code, msg, data }) => {
         if (code === 200) {
-          this.list = list2tree(data)
-          this.listLoading = false
+          this.list = this.listQuery.keyword ? list2tree(data.list) : data.list
+          this.total = data.total
+        } else {
+          this.$message.error(msg)
+        }
+        this.listLoading = false
+      })
+    },
+    load(row, treeNode, resolve) {
+      if (this.listQuery.keyword) {
+        var children = childrenOfTree(this.list, row.id)
+        // console.log(children)
+        resolve(children || [])
+        return
+      }
+
+      getChildren(row.id).then(({ code, msg, data }) => {
+        if (code === 200) {
+          resolve(data)
         } else {
           this.$message.error(msg)
         }
@@ -175,27 +214,31 @@ export default {
     },
     handleDelete(row, index) {
       var ids = [row.id]
-      remove(ids).then(({ code, msg, data }) => {
-        if (code === 200) {
-          this.$message({
-            title: '操作成功',
-            message: '删除成功',
-            type: 'success',
-            duration: 1500
-          })
-          // 查询数据
-          this.getList()
-        } else {
-          this.$message.error(msg)
-        }
+      this.$confirm(`确定对[id=${ids.join(',')}]进行['删除' ]操作?`, '提示', {
+        confirmButtonText: this.LB.common.CONFIRM,
+        cancelButtonText: this.LB.common.CANCEL,
+        type: 'warning'
+      }).then(() => {
+        remove(ids).then(({ code, msg, data }) => {
+          if (code === 200) {
+            this.$message({
+              title: '操作成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 1500,
+              onClose: () => {
+                // 查询数据
+                this.getList()
+              }
+            })
+          } else {
+            this.$message.error(msg)
+          }
+        })
       })
     }
   }
 }
 </script>
 
-<style
-  lang="scss"
-  scoped
->
-</style>
+<style lang="scss" scoped></style>
