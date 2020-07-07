@@ -5,7 +5,7 @@ import { loadjson } from '../util'
 var datalist = loadjson('log.json')
 
 export default [
-// get log info
+  // get log info
   {
     url: `${URL.sys.log.GET_INFO}\.*`,
     type: 'get',
@@ -20,9 +20,9 @@ export default [
         }
       }
 
-      const key = '/dev-api/sys/log/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/log/info/`
       var tmp = config.url.replace(key, '')
-      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
+      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
       console.log('id:' + id)
       var info = datalist.find(el => el.id === id)
@@ -147,11 +147,11 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/sys/log/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/log/delete/`
       var tmp = turl.replace(key, '')
-      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
+      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
-      var list = datalist.filter(item => (item.id != id))
+      var list = datalist.filter(item => item.id != id)
       // console.log(list)
       datalist = list
 

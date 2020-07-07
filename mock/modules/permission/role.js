@@ -21,7 +21,7 @@ export default [
         }
       }
 
-      const key = '/dev-api/sys/role/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/role/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -57,7 +57,7 @@ export default [
         }
       }
 
-      const key = '/dev-api/sys/role/list/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/role/list/`
       var tmp = config.url.replace(key, '')
       const orgId = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -192,7 +192,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/sys/role/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/role/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

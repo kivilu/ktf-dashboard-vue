@@ -53,7 +53,7 @@ export default [
 
       console.log(config.url)
 
-      const key = '/dev-api/sys/dic/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/dic/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -193,7 +193,7 @@ export default [
       }
 
       var turl = config.url
-      const key = '/dev-api/sys/dic/getChildren/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/dic/getChildren/`
       var tmp = turl.replace(key, '')
       const pid = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -296,7 +296,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/sys/dic/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/dic/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

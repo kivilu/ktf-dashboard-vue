@@ -20,7 +20,7 @@ export default [
         }
       }
 
-      const key = '/dev-api/org/title/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/title/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -178,7 +178,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/org/title/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/title/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

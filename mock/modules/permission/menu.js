@@ -196,7 +196,7 @@ export default [
         }
       }
 
-      const key = '/dev-api/sys/menu/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -285,7 +285,7 @@ export default [
       }
 
       var turl = config.url
-      const key = '/dev-api/sys/menu/getChildren/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/getChildren/`
       var tmp = turl.replace(key, '')
       const params = tmp
         .replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
@@ -405,7 +405,7 @@ export default [
       // console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/sys/menu/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

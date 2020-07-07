@@ -20,7 +20,7 @@ msg: '没有权限访问'
 }
 }
 
-const key = '/dev-api/{{path}}/{{name}}/info/'
+const key = `${process.env.VUE_APP_BASE_API}/{{path}}/{{name}}/info/`
 var tmp = config.url.replace(key, '')
 const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 
@@ -160,7 +160,7 @@ begin = begin < 0
     console.log(config.query)
 
     var turl = config.url
-    const key = '/dev-api/{{path}}/{{name}}/delete/'
+    const key = `${process.env.VUE_APP_BASE_API}/{{path}}/{{name}}/delete/`
     var tmp = turl.replace(key, '')
     const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
 

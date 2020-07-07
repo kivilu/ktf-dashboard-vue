@@ -269,7 +269,6 @@ export default {
       visible: false,
       popoverVisible: false,
       showAttachment: false,
-
       dataForm: {
         id: 0,
         name: null,

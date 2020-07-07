@@ -20,7 +20,7 @@ export default [
         }
       }
 
-      const key = '/dev-api/org/dept/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/dept/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -105,7 +105,7 @@ export default [
       }
 
       var turl = config.url
-      const key = '/dev-api/org/dept/getChildren/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/dept/getChildren/`
       var tmp = turl.replace(key, '')
       const pid = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -142,7 +142,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/org/dept/listByCorp/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/dept/listByCorp/`
       var tmp = turl.replace(key, '')
       const corpId = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -245,7 +245,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/org/dept/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/dept/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

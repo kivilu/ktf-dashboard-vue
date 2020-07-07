@@ -20,12 +20,14 @@ export default [
         }
       }
 
-      const key = '/dev-api/org/corp/info/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/corp/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
       console.log('id:' + id)
-      var info = datalist.find(el => el.id === id)
+      var info = datalist.find(el => el.id == id)
+
+      console.log(info)
 
       return {
         code: 200,
@@ -185,7 +187,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/org/corp/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/org/corp/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

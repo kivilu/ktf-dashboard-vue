@@ -80,6 +80,8 @@ export default [
         }
       }
 
+      console.log()
+
       var info = getUser(token)
 
       return {
@@ -116,7 +118,11 @@ export default [
 
       console.log(result)
 
-      return { msg: 'success', code: 200, data: { list: result, total: result.length } }
+      return {
+        msg: 'success',
+        code: 200,
+        data: { list: result, total: result.length }
+      }
     }
   },
   // new user
@@ -201,11 +207,11 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = '/dev-api/sys/user/delete/'
+      const key = `${process.env.VUE_APP_BASE_API}/sys/user/delete/`
       var tmp = turl.replace(key, '')
-      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/ig, '$1')
+      const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
-      var list = datalist.filter(item => (item.id !== id))
+      var list = datalist.filter(item => item.id !== id)
       // console.log(list)
       datalist = list
 
