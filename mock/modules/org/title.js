@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('title.json')
 
-export default [
+module.exports = [
   // get title info
   {
     url: `${URL.org.title.GET_INFO}\.*`,

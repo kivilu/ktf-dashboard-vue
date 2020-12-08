@@ -9,14 +9,14 @@ import URL from '../url'
  * @param {*} functionName
  * @returns
  */
-export function url(functionName) {
+export function url (functionName) {
   return URL.org.dept[functionName.replace(/([A-Z])/g, '_$1').toUpperCase()]
 }
 
 /*
  *根据ID查询
  */
-export function getInfo(id) {
+export function getInfo (id) {
   return request({
     url: url('getInfo') + `/${id}`,
     method: 'get',
@@ -28,7 +28,7 @@ export function getInfo(id) {
  *
  * @param {*} pid
  */
-export function getChildren(pid) {
+export function getChildren (pid) {
   return request({
     url: url('getChildren') + `/${pid}`,
     method: 'get',
@@ -40,7 +40,7 @@ export function getChildren(pid) {
  * 根据企业ID查询部门
  * @param {*} corpId
  */
-export function listByCorp(corpId) {
+export function listByCorp (corpId) {
   return request({
     url: url('listByCorp') + `/${corpId}`,
     method: 'get',
@@ -49,11 +49,11 @@ export function listByCorp(corpId) {
 }
 
 /*
- * 分页查找数据
+ * 查找顶级部门
  */
-export function page(params) {
+export function tops (params = { page: 1, limit: 20 }) {
   return request({
-    url: url('page'),
+    url: url('tops'),
     method: 'get',
     params: adornParams(params)
   })
@@ -62,7 +62,7 @@ export function page(params) {
 /*
  *创建
  */
-export function save(data) {
+export function save (data) {
   return request({
     url: url('save'),
     method: 'post',
@@ -73,7 +73,7 @@ export function save(data) {
 /*
  * 更新
  */
-export function update(data) {
+export function update (data) {
   return request({
     url: url('update'),
     method: 'post',
@@ -84,7 +84,7 @@ export function update(data) {
 /*
  *删除
  */
-export function remove(ids) {
+export function remove (ids) {
   return ids.length === 1 ? removeOne(ids[0]) : removeBatch(ids)
 }
 
@@ -92,7 +92,7 @@ export function remove(ids) {
 /*
  *单个删除
  */
-function removeOne(id) {
+function removeOne (id) {
   return request({
     url: url('delete') + `/${id}`,
     method: 'get'
@@ -101,7 +101,7 @@ function removeOne(id) {
 /*
  * 批量删除
  */
-function removeBatch(ids) {
+function removeBatch (ids) {
   return request({
     url: url('delete'),
     method: 'post',

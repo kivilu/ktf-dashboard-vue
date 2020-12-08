@@ -14,11 +14,10 @@ export function url(method) {
 }
 
 export function login(data) {
-  // console.log(`${url.user.LOGIN}`)
   return request({
     url: url('login'),
     method: 'post',
-    data
+    data: data
   })
 }
 
@@ -55,7 +54,7 @@ export function save(data) {
   return request({
     url: url('save'),
     method: 'post',
-    data: adornData(data)
+    data: data
   })
 }
 
@@ -66,7 +65,7 @@ export function update(data) {
   return request({
     url: url('update'),
     method: 'post',
-    data: adornData(data)
+    data: data
   })
 }
 
@@ -77,7 +76,40 @@ export function remove(ids) {
   return ids.length === 1 ? removeOne(ids[0]) : removeBatch(ids)
 }
 
-// 批量操作函数
+/**
+ * 修改密码
+ * @param {Object} data 对象内容格式{password:'',newPassword:''}
+ */
+export function password(data) {
+  return request({
+    url: url('password'),
+    method: 'post',
+    data: data
+  })
+}
+
+/**
+ * 重置选中用户的密码
+ * @param {Long} id
+ */
+export function restUserPassword(id) {
+  return request({
+    url: url('passwordReset') + `/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 重置自身密码
+ * @param {Object} data
+ */
+export function restSelfPassword(data) {
+  return request({
+    url: url('passwordReset'),
+    method: 'post',
+    data: data
+  })
+}
 
 // 本地函数
 /*

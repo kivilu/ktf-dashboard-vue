@@ -1,5 +1,6 @@
 import { getSettings } from '@/api/sys/dic'
 import { typeConvert } from '@/utils'
+import assign from 'lodash/assign'
 import defaultSettings from '@/settings'
 
 const {
@@ -35,24 +36,24 @@ const actions = {
     return new Promise((resolve, reject) => {
       getSettings()
         .then(({ code, msg, data }) => {
-          // console.log(data)
-
           if (data) {
-            if (Array.isArray(data)) {
-              var settings = defaultSettings.settings
-              data.forEach(item => {
-                settings[item.key] = typeConvert(
-                  item.value,
-                  defaultSettings.settings[item.key]
-                )
-              })
+            var settings = assign(defaultSettings.settings, data)
+            // if (Array.isArray(data)) {
+            //   var settings = defaultSettings.settings
+            //   data.forEach(item => {
+            //     settings[item.key] = typeConvert(
+            //       item.value,
+            //       defaultSettings.settings[item.key]
+            //     )
+            //   })
 
-              // console.log(settingVal)
+            //   var setting = { key: 'settings', value: settings }
 
-              var setting = { key: 'settings', value: settings }
+            //   commit('CHANGE_SETTING', setting)
+            // }
 
-              commit('CHANGE_SETTING', setting)
-            }
+            var setting = { key: 'settings', value: settings }
+            commit('CHANGE_SETTING', setting)
 
             resolve(data)
           }

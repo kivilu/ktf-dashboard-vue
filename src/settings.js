@@ -29,7 +29,9 @@ module.exports = {
   settings: {
     multiOrg: false, // 是否开启多企业模式，true | false
     // 是否启用U盾
-    enableUkey: true,
+    enableUkey: false,
+    // 是否启用复杂密码
+    complexPassword: false,
     // 每页显示个数选择器的选项设置
     pageSizes: [10, 20, 30, 50],
     // Dialog 显示的宽度

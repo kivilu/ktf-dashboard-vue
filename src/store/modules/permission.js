@@ -50,7 +50,6 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       dynamicRoutes().then(result => {
-        // console.log(result)
         const accessedRoutes = result
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)

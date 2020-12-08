@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: '',
+    avatar: '~@/assets/img/avatar.jpg',
+    status: 0,
     roles: []
   }
 }
@@ -14,7 +15,7 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const mutations = {
-  RESET_STATE: (state) => {
+  RESET_STATE: state => {
     Object.assign(state, getDefaultState())
   },
   SET_TOKEN: (state, token) => {
@@ -28,68 +29,80 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_STATUS: (state, status) => {
+    state.status = status
   }
 }
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { userName, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      login({ userName: userName.trim(), password: password })
+        .then(({ code, data }) => {
+          commit('SET_TOKEN', data.token)
+          commit('SET_STATUS', code === 202 ? 9 : 0)
+          setToken(data.token)
+          resolve(code)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
+      getInfo(state.token)
+        .then(({ code, msg, data }) => {
+          if (!data) {
+            reject('Verification failed, please Login again.')
+          }
 
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
+          const { roleIds, name, avatar, status } = data
+          var roles = roleIds
+          // roles must be a non-empty array
+          if (!roles || roles.length <= 0) {
+            reject('getInfo: roles must be a non-null array!')
+          }
 
-        const { roleId, name, avatar } = data
-        var roles = [roleId]
-        // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+          commit('SET_ROLES', roles)
+          commit('SET_NAME', name)
+          if(avatar)
+            commit('SET_AVATAR', avatar)
+          commit('SET_STATUS', status)
 
-        commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
+          console.log(state)
+
+          resolve(data)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
+      logout(state.token)
+        .then(() => {
+          removeToken() // must remove  token  first
+          resetRouter()
+          commit('RESET_STATE')
 
-        // reset visited views and cached views
-        // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
-        dispatch('tagsView/delAllViews', null, { root: true })
+          // reset visited views and cached views
+          // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
+          dispatch('tagsView/delAllViews', null, { root: true })
 
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+          resolve()
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
 

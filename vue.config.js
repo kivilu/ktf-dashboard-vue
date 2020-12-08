@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
+const proxy = require('http-proxy-middleware')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -27,11 +28,23 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave:
-    process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'mock',
+  lintOnSave: process.env.NODE_ENV !== 'production',
   productionSourceMap: false,
   devServer: {
     port: port,
+    proxy: {
+      '/dev-api': {
+        target: 'http://localhost:8080',
+        pathRewrite: { '^/dev-api': '' },
+        changeOrigin: true,
+        bypass: function(req, res, proxyOptions) {
+          if (req.headers.accept.indexOf('html') !== -1) {
+            console.log('Skipping proxy for browser request.')
+            return '/index.html'
+          }
+        }
+      }
+    },
     open: true,
     overlay: {
       warnings: false,

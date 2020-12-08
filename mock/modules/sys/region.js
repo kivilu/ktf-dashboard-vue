@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('region.json')
 
-export default [
+module.exports = [
   // get region info
   {
     url: `${URL.sys.region.GET_INFO}\.*`,
@@ -34,9 +34,9 @@ export default [
       }
     }
   },
-  // query region by page
+  // TOPS
   {
-    url: `${URL.sys.region.PAGE}`,
+    url: `${URL.sys.region.TOPS}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -56,28 +56,16 @@ export default [
       var end = config.query.page * config.query.limit
       var begin = end - config.query.limit
       begin = begin < 0 ? 0 : begin
+
       if (keyword === '') {
         result = datalist.filter(item => item.pid == pid)
         result = result.slice(begin, end)
-        console.log(result)
       } else {
-        result = datalist.filter(item => item.name.includes(keyword))
+        var targets = resources.filter(item => item.name.includes(keyword))
+        var rids = getParents(pid, resources, targets)
+        result = resources.filter(item => rids.includes(item.id))
+
         result = result.slice(begin, end)
-
-        // 查找没有包含的父节点
-        var parents = []
-        result.forEach(element => {
-          if (!result.find(item => item.id === element.pid)) {
-            var parent = datalist.find(item => item.id === element.pid)
-            if (parent) {
-              parents.push(parent)
-            }
-          }
-        })
-
-        if (parents.length > 0) {
-          result = result.concat(parents)
-        }
       }
 
       result.forEach(ele => {

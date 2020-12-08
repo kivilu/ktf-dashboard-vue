@@ -1,11 +1,11 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('role.json')
 var resources = loadjson('resource.json')
 
-export default [
+module.exports = [
   // get role info
   {
     url: `${URL.permission.role.GET_INFO}\.*`,
@@ -21,7 +21,7 @@ export default [
         }
       }
 
-      const key = `${process.env.VUE_APP_BASE_API}/sys/role/info/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/role/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -57,7 +57,7 @@ export default [
         }
       }
 
-      const key = `${process.env.VUE_APP_BASE_API}/sys/role/list/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/role/list/`
       var tmp = config.url.replace(key, '')
       const orgId = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -192,7 +192,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = `${process.env.VUE_APP_BASE_API}/sys/role/delete/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/role/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

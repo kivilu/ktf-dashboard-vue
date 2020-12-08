@@ -1,16 +1,39 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { getUser } from './user'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson, getParents  } = require('../util')
 
-import { loadjson } from '../util'
+
+var userlist = loadjson('user.json')
+// console.log(datalist)
+
+var tokens = [
+  { id: 1, token: 'system-token' },
+  { id: 1252804599657005058, token: 'admin-token' },
+  { id: 1253515083335094273, token: 'admin_audit-token' },
+  { id: 1253148402838523905, token: 'admin_biz-token' },
+  { id: 1246424122851360770, token: 'api-user-001-token' },
+  { id: 1253517097775419394, token: 'auditor-token' },
+  { id: 1253152688569962498, token: 'operator_key-token' },
+  { id: 1253152808568999938, token: 'reviewer_key-token' }
+]
+
+function getUser(token) {
+  var item = tokens.find(el => el.token === token)
+
+  var info = userlist.find(el => el.id == item.id)
+  // console.log(item)
+
+  return info
+}
+
 
 var resources = loadjson('resource.json')
 // var resources = [
 //   { id: 1, parentId: 0, name: '系统管理', url: '', icon: 'component', resourceType: 0, status: 0, seq: 1 },
-//   { id: 2, parentId: 1, name: '字典管理', url: 'sys/dic', icon: 'education', resourceType: 1, status: 0, seq: 1 },
-//   { id: 3, parentId: 1, name: '菜单管理', url: 'sys/menu', icon: 'tree-table', resourceType: 1, status: 0, seq: 2 },
-//   { id: 4, parentId: 1, name: '角色管理', url: 'sys/role', icon: 'people', resourceType: 1, status: 0, seq: 3 },
-//   { id: 5, parentId: 1, name: '用户管理', url: 'sys/user', icon: 'peoples', resourceType: 1, status: 0, seq: 4 }
+//   { id: 2, parentId: 1, name: '字典管理', url: 'permission/dic', icon: 'education', resourceType: 1, status: 0, seq: 1 },
+//   { id: 3, parentId: 1, name: '菜单管理', url: 'permission/menu', icon: 'tree-table', resourceType: 1, status: 0, seq: 2 },
+//   { id: 4, parentId: 1, name: '角色管理', url: 'permission/role', icon: 'people', resourceType: 1, status: 0, seq: 3 },
+//   { id: 5, parentId: 1, name: '用户管理', url: 'permission/user', icon: 'peoples', resourceType: 1, status: 0, seq: 4 }
 // ]
 
 // SELECT	rr.role_id,	group_concat(rr.resource_id) FROM	ktf_sys_role_resource rr GROUP BY	rr.role_id;
@@ -123,7 +146,7 @@ var permissions = [
   }
 ]
 
-function resource2menu(list) {
+function resource2menu (list) {
   var tmp = list.filter(item => item.resourceType < 2)
 
   var menus = tmp.map(item => {
@@ -144,7 +167,7 @@ function resource2menu(list) {
   return menus
 }
 
-function getMenus(roleIds) {
+function getMenus (roleIds) {
   console.log(roleIds)
   if (roleIds.includes('1')) {
     //
@@ -155,7 +178,9 @@ function getMenus(roleIds) {
   return resource2menu(list)
 }
 
-export default [
+
+
+module.exports = [
   // get nav
   {
     url: `${URL.permission.menu.NAV}`,
@@ -196,7 +221,7 @@ export default [
         }
       }
 
-      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/info/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/menu/info/`
       var tmp = config.url.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -211,9 +236,9 @@ export default [
       }
     }
   },
-  // query dic by page
+  // tops
   {
-    url: `${URL.permission.menu.PAGE}`,
+    url: `${URL.permission.menu.TOPS}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -228,31 +253,24 @@ export default [
 
       console.log(config.query)
 
+      var pid = 0
       var keyword = config.query.keyword || ''
-      var pid = config.query.pid || 0
       var end = config.query.page * config.query.limit
       var begin = end - config.query.limit
       begin = begin < 0 ? 0 : begin
 
-      // console.log('begin:' + begin)
-      // console.log('end:' + end)
+      //console.log(keyword)
 
       var result = []
       if (keyword === '') {
         result = resources.filter(item => item.parentId == pid)
         result = result.slice(begin, end)
       } else {
-        result = resources.filter(item => item.name.includes(keyword))
+        var targets = resources.filter(item => item.name.includes(keyword))
+        var rids = getParents(pid, resources, targets)
+        result = resources.filter(item => rids.includes(item.id))
+
         result = result.slice(begin, end)
-        // 查找没有包含的父节点
-        var parents = []
-        result.forEach(element => {
-          if (!result.find(item => item.id === element.parentId)) {
-            var parent = resources.find(item => item.id === element.parentId)
-            parents.push(parent)
-          }
-        })
-        result = result.concat(parents)
       }
 
       result.forEach(element => {
@@ -285,7 +303,7 @@ export default [
       }
 
       var turl = config.url
-      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/getChildren/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/menu/getChildren/`
       var tmp = turl.replace(key, '')
       const params = tmp
         .replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
@@ -299,16 +317,16 @@ export default [
         isMenu === 'false'
           ? resources.filter(item => item.parentId == pid)
           : resources.filter(
-              item => item.parentId == pid && item.resourceType < 2
-            )
+            item => item.parentId == pid && item.resourceType < 2
+          )
 
       result.forEach(element => {
         var child =
           isMenu === 'false'
             ? resources.find(item => item.parentId === element.id)
             : resources.find(
-                item => item.parentId === element.id && item.resourceType < 2
-              )
+              item => item.parentId === element.id && item.resourceType < 2
+            )
         // console.log(child)
         element.hasChildren = !!child
       })
@@ -405,7 +423,7 @@ export default [
       // console.log(config.query)
 
       var turl = config.url
-      const key = `${process.env.VUE_APP_BASE_API}/sys/menu/delete/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/menu/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

@@ -1,43 +1,44 @@
 <template>
-  <el-dialog
-    v-el-drag-dialog
-    :title="textMap[dialogStatus]"
-    :close-on-click-modal="false"
-    :visible.sync="visible"
-    @dragDialog="handleDrag"
-  >
-    <el-form
-      ref="dataForm"
-      :rules="rules"
-      :model="dataForm"
-      label-position="left"
-      label-width="100px"
-      style="margin-left:50px; margin-right:100px;"
-      :width="DLG_WIDTH"
-    >
-      <el-form-item label="地区名称" prop="name">
-        <el-input v-model="dataForm.name" placeholder="地区名称" />
+  <el-dialog v-el-drag-dialog
+             :title="textMap[dialogStatus]"
+             :close-on-click-modal="false"
+             :visible.sync="visible"
+             @dragDialog="handleDrag">
+    <el-form ref="dataForm"
+             :rules="rules"
+             :model="dataForm"
+             label-position="left"
+             label-width="100px"
+             style="margin-left:50px; margin-right:100px;"
+             :width="DLG_WIDTH">
+      <el-form-item label="地区名称"
+                    prop="name">
+        <el-input v-model="dataForm.name"
+                  placeholder="地区名称" />
       </el-form-item>
-      <el-form-item label="地区代码" prop="code">
-        <el-input v-model="dataForm.code" placeholder="地区代码" />
+      <el-form-item label="地区代码"
+                    prop="code">
+        <el-input v-model="dataForm.code"
+                  placeholder="地区代码" />
       </el-form-item>
-      <el-form-item label="上级地区" prop="parent">
-        <tree-input
-          ref="treeInput"
-          v-model="dataForm.parent"
-          :root-id="86"
-          :get-children="getTreeData"
-          :get-my-info="getMyInfo"
-          required
-        />
+      <el-form-item label="上级地区"
+                    prop="parent">
+        <tree-input ref="treeInput"
+                    v-model="dataForm.parent"
+                    :load-init="getTopRegions"
+                    :get-children="getTreeData"
+                    :get-my-info="getMyInfo"
+                    required />
       </el-form-item>
     </el-form>
 
-    <div slot="footer" class="dialog-footer">
+    <div slot="footer"
+         class="dialog-footer">
       <el-button @click="visible = false">
         {{ LB.common.CANCEL }}
       </el-button>
-      <el-button type="primary" @click="dataFormSubmit()">
+      <el-button type="primary"
+                 @click="dataFormSubmit()">
         {{ LB.common.CONFIRM }}
       </el-button>
     </div>
@@ -47,7 +48,7 @@
 <script>
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 import treeInput from '@/components/TreeInput'
-import { getInfo, save, update, getChildren } from '@/api/sys/region'
+import { getInfo, save, update, getChildren, tops } from '@/api/sys/region'
 export default {
   name: 'SysRegionDlg',
   directives: { elDragDialog },
@@ -161,6 +162,15 @@ export default {
     // v-el-drag-dialog onDrag callback function
     handleDrag() {
       // this.$refs.select.blur()
+    },
+    async getTopRegions() {
+      const res = await tops()
+      if (res.code === 200) {
+        return res.data.list
+      } else {
+        this.$message.error(msg)
+        return []
+      }
     },
     async getTreeData(pid) {
       const res = await getChildren(pid)

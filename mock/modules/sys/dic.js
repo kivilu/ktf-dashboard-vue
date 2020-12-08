@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('dic.json')
 
-export default [
+module.exports = [
   // GET_SETTINGS
   {
     url: `${URL.sys.dic.GET_SETTINGS}`,
@@ -119,9 +119,9 @@ export default [
       return { msg: 'success', code: 200, data: result }
     }
   },
-  // query dic by page
+  // TOPS
   {
-    url: `${URL.sys.dic.PAGE}`,
+    url: `${URL.sys.dic.TOPS}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -136,31 +136,23 @@ export default [
 
       console.log(config.query)
 
+      var pid = 0
       var keyword = config.query.keyword || ''
-      var pid = config.query.pid || 0
       var end = config.query.page * config.query.limit
       var begin = end - config.query.limit
       begin = begin < 0 ? 0 : begin
 
-      // console.log('begin:' + begin)
-      // console.log('end:' + end)
 
       var result = []
       if (keyword === '') {
         result = datalist.filter(item => item.parentId == pid)
         result = result.slice(begin, end)
       } else {
-        result = datalist.filter(item => item.varName.includes(keyword))
+        var targets = datalist.filter(item => item.name.includes(keyword))
+        var rids = getParents(pid, datalist, targets)
+        result = datalist.filter(item => rids.includes(item.id))
+
         result = result.slice(begin, end)
-        // 查找没有包含的父节点
-        var parents = []
-        result.forEach(element => {
-          if (!result.find(item => item.id === element.parentId)) {
-            var parent = datalist.find(item => item.id === element.parentId)
-            parents.push(parent)
-          }
-        })
-        result = result.concat(parents)
       }
 
       result.forEach(element => {

@@ -1,7 +1,6 @@
 [
   {
     "id": "1",
-    "applicationId": "0",
     "parentId": "0",
     "name": "权限管理",
     "url": "permission",
@@ -10,14 +9,10 @@
     "seq": 1,
     "resourceType": 0,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "system",
-    "gmtCreate": "2019-11-03T23:18:54",
-    "gmtUpdate": "2019-11-03T23:18:55"
+    "status": 0
   },
   {
     "id": "13",
-    "applicationId": "0",
     "parentId": "1",
     "name": "用户管理",
     "url": "permission/user",
@@ -26,15 +21,10 @@
     "seq": 1,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "admin",
-    "gmtCreate": "2019-09-06T11:44:34",
-    "gmtUpdate": "2019-09-06T11:44:34",
-    "parentName": "权限管理"
+    "status": 0
   },
   {
     "id": "131",
-    "applicationId": "0",
     "parentId": "13",
     "name": "列表",
     "url": "permission/user/list",
@@ -43,14 +33,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "132",
-    "applicationId": "0",
     "parentId": "13",
     "name": "添加",
     "url": "permission/user/save",
@@ -59,14 +45,10 @@
     "seq": 2,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "133",
-    "applicationId": "0",
     "parentId": "13",
     "name": "编辑",
     "url": "permission/user/update",
@@ -75,14 +57,10 @@
     "seq": 3,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "134",
-    "applicationId": "0",
     "parentId": "13",
     "name": "删除",
     "url": "permission/user/delete",
@@ -91,14 +69,10 @@
     "seq": 4,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "135",
-    "applicationId": "0",
     "parentId": "13",
     "name": "信息",
     "url": "permission/user/info",
@@ -106,14 +80,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-14T14:05:39",
-    "gmtUpdate": "2018-12-14T14:05:41",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "359",
-    "applicationId": "0",
     "parentId": "13",
     "name": "重置PIN",
     "url": "permission/user/passwordReset",
@@ -122,16 +92,10 @@
     "seq": 6,
     "resourceType": 2,
     "hidden": 1,
-    "status": 0,
-    "createUser": "system",
-    "updateUser": "system",
-    "gmtCreate": "2020-04-24T16:26:40",
-    "gmtUpdate": "2020-04-24T16:26:40",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "372",
-    "applicationId": "0",
     "parentId": "13",
     "name": "修改密码",
     "url": "permission/user/password",
@@ -140,16 +104,10 @@
     "seq": 7,
     "resourceType": 2,
     "hidden": 1,
-    "status": 0,
-    "createUser": "system",
-    "updateUser": "system",
-    "gmtCreate": "2020-05-05T21:39:47",
-    "gmtUpdate": "2020-05-05T21:39:48",
-    "parentName": "用户管理"
+    "status": 0
   },
   {
     "id": "12",
-    "applicationId": "0",
     "parentId": "1",
     "name": "角色管理",
     "url": "permission/role",
@@ -158,15 +116,10 @@
     "seq": 2,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "admin",
-    "gmtCreate": "2018-12-17T19:11:24",
-    "gmtUpdate": "2018-12-17T19:11:25",
-    "parentName": "权限管理"
+    "status": 0
   },
   {
     "id": "121",
-    "applicationId": "0",
     "parentId": "12",
     "name": "列表",
     "url": "permission/role/list",
@@ -175,14 +128,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "122",
-    "applicationId": "0",
     "parentId": "12",
     "name": "添加",
     "url": "permission/role/save",
@@ -191,14 +140,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "123",
-    "applicationId": "0",
     "parentId": "12",
     "name": "编辑",
     "url": "permission/role/update",
@@ -207,14 +152,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "124",
-    "applicationId": "0",
     "parentId": "12",
     "name": "删除",
     "url": "permission/role/delete",
@@ -223,14 +164,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "125",
-    "applicationId": "0",
     "parentId": "12",
     "name": "选择",
     "url": "permission/role/select",
@@ -238,14 +175,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-14T13:52:39",
-    "gmtUpdate": "2018-12-14T13:52:42",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "126",
-    "applicationId": "0",
     "parentId": "12",
     "name": "信息",
     "url": "permission/role/info",
@@ -253,14 +186,10 @@
     "seq": 6,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-14T14:32:15",
-    "gmtUpdate": "2018-12-14T14:32:15",
-    "parentName": "角色管理"
+    "status": 0
   },
   {
     "id": "11",
-    "applicationId": "0",
     "parentId": "1",
     "name": "菜单管理",
     "url": "permission/menu",
@@ -269,15 +198,10 @@
     "seq": 3,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "admin",
-    "gmtCreate": "2019-09-06T11:42:20",
-    "gmtUpdate": "2019-09-06T11:42:21",
-    "parentName": "权限管理"
+    "status": 0
   },
   {
     "id": "111",
-    "applicationId": "0",
     "parentId": "11",
     "name": "列表",
     "url": "permission/menu/list",
@@ -286,14 +210,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "112",
-    "applicationId": "0",
     "parentId": "11",
     "name": "添加",
     "url": "permission/menu/save",
@@ -302,14 +222,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "113",
-    "applicationId": "0",
     "parentId": "11",
     "name": "编辑",
     "url": "permission/menu/update",
@@ -318,14 +234,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "114",
-    "applicationId": "0",
     "parentId": "11",
     "name": "删除",
     "url": "permission/menu/delete",
@@ -334,14 +246,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "115",
-    "applicationId": "0",
     "parentId": "11",
     "name": "选择",
     "url": "permission/menu/select",
@@ -349,14 +257,10 @@
     "seq": 4,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-14T16:44:29",
-    "gmtUpdate": "2018-12-14T16:44:32",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "116",
-    "applicationId": "0",
     "parentId": "11",
     "name": "信息",
     "url": "permission/menu/info",
@@ -364,14 +268,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-14T16:45:04",
-    "gmtUpdate": "2018-12-14T16:45:06",
-    "parentName": "菜单管理"
+    "status": 0
   },
   {
     "id": "249",
-    "applicationId": "0",
     "parentId": "0",
     "name": "组织架构",
     "url": "org",
@@ -380,15 +280,10 @@
     "seq": 4,
     "resourceType": 0,
     "hidden": 1,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "system",
-    "gmtCreate": "2020-04-24T16:27:47",
-    "gmtUpdate": "2020-04-24T16:27:48"
+    "status": 0
   },
   {
     "id": "250",
-    "applicationId": "0",
     "parentId": "249",
     "name": "企业信息",
     "url": "org/corp",
@@ -397,14 +292,10 @@
     "seq": 1,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:25:18",
-    "parentName": "组织架构"
+    "status": 0
   },
   {
     "id": "252",
-    "applicationId": "0",
     "parentId": "250",
     "name": "添加",
     "url": "org/corp/save",
@@ -413,14 +304,10 @@
     "seq": 2,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:26:34",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "254",
-    "applicationId": "0",
     "parentId": "250",
     "name": "删除",
     "url": "org/corp/delete",
@@ -429,14 +316,10 @@
     "seq": 4,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:27:35",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "253",
-    "applicationId": "0",
     "parentId": "250",
     "name": "编辑",
     "url": "org/corp/update",
@@ -445,14 +328,10 @@
     "seq": 3,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:27:14",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "251",
-    "applicationId": "0",
     "parentId": "250",
     "name": "列表",
     "url": "org/corp/list",
@@ -461,14 +340,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:25:59",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "255",
-    "applicationId": "0",
     "parentId": "250",
     "name": "信息",
     "url": "org/corp/info",
@@ -477,14 +352,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T15:28:04",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "301",
-    "applicationId": "0",
     "parentId": "250",
     "name": "名称",
     "url": "org/corp/names",
@@ -493,14 +364,10 @@
     "seq": 6,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2019-09-06T23:25:56",
-    "parentName": "企业信息"
+    "status": 0
   },
   {
     "id": "256",
-    "applicationId": "0",
     "parentId": "249",
     "name": "部门管理",
     "url": "org/dept",
@@ -509,16 +376,10 @@
     "seq": 6,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2019-10-02T08:05:53",
-    "gmtUpdate": "2019-10-02T08:05:53",
-    "parentName": "组织架构"
+    "status": 0
   },
   {
     "id": "259",
-    "applicationId": "0",
     "parentId": "256",
     "name": "添加",
     "url": "org/dept/save",
@@ -527,14 +388,10 @@
     "seq": 2,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:06:09",
-    "parentName": "部门管理"
+    "status": 0
   },
   {
     "id": "258",
-    "applicationId": "0",
     "parentId": "256",
     "name": "列表",
     "url": "org/dept/list",
@@ -543,14 +400,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:05:51",
-    "parentName": "部门管理"
+    "status": 0
   },
   {
     "id": "260",
-    "applicationId": "0",
     "parentId": "256",
     "name": "编辑",
     "url": "org/dept/update",
@@ -559,14 +412,10 @@
     "seq": 3,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:06:34",
-    "parentName": "部门管理"
+    "status": 0
   },
   {
     "id": "261",
-    "applicationId": "0",
     "parentId": "256",
     "name": "删除",
     "url": "org/dept/delete",
@@ -575,14 +424,10 @@
     "seq": 4,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:07:01",
-    "parentName": "部门管理"
+    "status": 0
   },
   {
     "id": "262",
-    "applicationId": "0",
     "parentId": "256",
     "name": "信息",
     "url": "org/dept/info",
@@ -591,14 +436,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:07:24",
-    "parentName": "部门管理"
+    "status": 0
   },
   {
     "id": "257",
-    "applicationId": "0",
     "parentId": "249",
     "name": "职位管理",
     "url": "org/title",
@@ -607,16 +448,10 @@
     "seq": 7,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2019-10-02T08:06:07",
-    "gmtUpdate": "2019-10-02T08:06:08",
-    "parentName": "组织架构"
+    "status": 0
   },
   {
     "id": "264",
-    "applicationId": "0",
     "parentId": "257",
     "name": "添加",
     "url": "org/title/save",
@@ -625,14 +460,10 @@
     "seq": 2,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:08:53",
-    "parentName": "职位管理"
+    "status": 0
   },
   {
     "id": "263",
-    "applicationId": "0",
     "parentId": "257",
     "name": "列表",
     "url": "org/title/list",
@@ -641,16 +472,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2018-12-17T19:10:45",
-    "gmtUpdate": "2018-12-17T19:10:46",
-    "parentName": "职位管理"
+    "status": 0
   },
   {
     "id": "265",
-    "applicationId": "0",
     "parentId": "257",
     "name": "编辑",
     "url": "org/title/update",
@@ -659,14 +484,10 @@
     "seq": 3,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:09:20",
-    "parentName": "职位管理"
+    "status": 0
   },
   {
     "id": "266",
-    "applicationId": "0",
     "parentId": "257",
     "name": "删除",
     "url": "org/title/delete",
@@ -675,14 +496,10 @@
     "seq": 4,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:09:48",
-    "parentName": "职位管理"
+    "status": 0
   },
   {
     "id": "267",
-    "applicationId": "0",
     "parentId": "257",
     "name": "信息",
     "url": "org/title/info",
@@ -691,14 +508,10 @@
     "seq": 5,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "gmtCreate": "2018-12-17T19:10:15",
-    "parentName": "职位管理"
+    "status": 0
   },
   {
     "id": "360",
-    "applicationId": "0",
     "parentId": "0",
     "name": "系统设置",
     "url": "sys",
@@ -707,15 +520,10 @@
     "seq": 6,
     "resourceType": 0,
     "hidden": 0,
-    "status": 0,
-    "createUser": "system",
-    "updateUser": "system",
-    "gmtCreate": "2020-06-02T14:23:16",
-    "gmtUpdate": "2020-06-02T14:23:16"
+    "status": 0
   },
   {
     "id": "234",
-    "applicationId": "0",
     "parentId": "360",
     "name": "字典管理",
     "url": "sys/dic",
@@ -724,15 +532,10 @@
     "seq": 1,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "system",
-    "gmtCreate": "2019-11-04T15:29:25",
-    "gmtUpdate": "2019-11-04T15:29:25",
-    "parentName": "系统设置"
+    "status": 0
   },
   {
     "id": "235",
-    "applicationId": "0",
     "parentId": "360",
     "name": "行业代码",
     "url": "sys/industry",
@@ -741,15 +544,10 @@
     "seq": 2,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "system",
-    "gmtCreate": "2019-11-04T15:29:25",
-    "gmtUpdate": "2019-11-04T15:29:25",
-    "parentName": "系统设置"
+    "status": 0
   },
   {
     "id": "236",
-    "applicationId": "0",
     "parentId": "360",
     "name": "地区代码",
     "url": "sys/region",
@@ -758,15 +556,10 @@
     "seq": 3,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "system",
-    "gmtCreate": "2019-11-04T15:29:25",
-    "gmtUpdate": "2019-11-04T15:29:25",
-    "parentName": "系统设置"
+    "status": 0
   },
   {
     "id": "302",
-    "applicationId": "0",
     "parentId": "234",
     "name": "信息",
     "url": "sys/dic/info",
@@ -775,16 +568,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2019-09-29T11:16:10",
-    "gmtUpdate": "2019-09-29T11:16:10",
-    "parentName": "字典管理"
+    "status": 0
   },
   {
     "id": "235",
-    "applicationId": "0",
     "parentId": "234",
     "name": "数据字典列表",
     "url": "sys/dic/list",
@@ -793,14 +580,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:37:23",
-    "gmtUpdate": "2018-12-13T19:37:23",
-    "parentName": "字典管理"
+    "status": 0
   },
   {
     "id": "236",
-    "applicationId": "0",
     "parentId": "234",
     "name": "添加",
     "url": "sys/dic/save",
@@ -809,14 +592,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:37:03",
-    "gmtUpdate": "2018-12-13T19:37:03",
-    "parentName": "字典管理"
+    "status": 0
   },
   {
     "id": "237",
-    "applicationId": "0",
     "parentId": "234",
     "name": "编辑",
     "url": "sys/dic/update",
@@ -825,14 +604,10 @@
     "seq": 2,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "字典管理"
+    "status": 0
   },
   {
     "id": "238",
-    "applicationId": "0",
     "parentId": "234",
     "name": "删除",
     "url": "sys/dic/delete",
@@ -841,14 +616,10 @@
     "seq": 3,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "gmtCreate": "2018-12-13T19:32:40",
-    "gmtUpdate": "2018-12-13T19:32:40",
-    "parentName": "字典管理"
+    "status": 0
   },
   {
     "id": "268",
-    "applicationId": "0",
     "parentId": "360",
     "name": "API文档",
     "url": "http://localhost:8090/doc.html",
@@ -857,16 +628,10 @@
     "seq": 31,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "system",
-    "gmtCreate": "2019-11-04T15:29:45",
-    "gmtUpdate": "2019-11-04T15:29:45",
-    "parentName": "系统设置"
+    "status": 0
   },
   {
     "id": "334",
-    "applicationId": "0",
     "parentId": "0",
     "name": "日志管理",
     "url": "log",
@@ -875,15 +640,10 @@
     "seq": 5,
     "resourceType": 0,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "system",
-    "gmtCreate": "2020-04-24T16:28:08",
-    "gmtUpdate": "2020-04-24T16:28:08"
+    "status": 0
   },
   {
     "id": "335",
-    "applicationId": "0",
     "parentId": "334",
     "name": "登录日志",
     "url": "log/login",
@@ -892,16 +652,10 @@
     "seq": 1,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2019-10-03T16:31:31",
-    "gmtUpdate": "2019-10-03T16:31:31",
-    "parentName": "日志管理"
+    "status": 0
   },
   {
     "id": "337",
-    "applicationId": "0",
     "parentId": "335",
     "name": "列表",
     "url": "log/login/list",
@@ -910,16 +664,10 @@
     "seq": 1,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "admin",
-    "gmtCreate": "2019-10-03T16:31:44",
-    "gmtUpdate": "2019-10-03T16:31:45",
-    "parentName": "登录日志"
+    "status": 0
   },
   {
     "id": "227",
-    "applicationId": "0",
     "parentId": "334",
     "name": "操作日志",
     "url": "log/operate",
@@ -928,15 +676,10 @@
     "seq": 2,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "updateUser": "system",
-    "gmtCreate": "2019-11-05T22:23:55",
-    "gmtUpdate": "2019-11-05T22:23:55",
-    "parentName": "日志管理"
+    "status": 0
   },
   {
     "id": "303",
-    "applicationId": "0",
     "parentId": "227",
     "name": "分页查询",
     "url": "log/page",
@@ -945,16 +688,10 @@
     "seq": 0,
     "resourceType": 2,
     "hidden": 0,
-    "status": 0,
-    "createUser": "admin",
-    "updateUser": "system",
-    "gmtCreate": "2019-11-05T22:24:51",
-    "gmtUpdate": "2019-11-05T22:24:52",
-    "parentName": "操作日志"
+    "status": 0
   },
   {
     "id": "361",
-    "applicationId": "0",
     "parentId": "334",
     "name": "审计日志",
     "url": "log/audit",
@@ -963,11 +700,6 @@
     "seq": 3,
     "resourceType": 1,
     "hidden": 0,
-    "status": 0,
-    "createUser": "system",
-    "updateUser": "system",
-    "gmtCreate": "2019-11-07T15:00:18",
-    "gmtUpdate": "2019-11-07T15:00:19",
-    "parentName": "日志管理"
+    "status": 0
   }
 ]

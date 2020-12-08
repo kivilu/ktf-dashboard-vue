@@ -50,24 +50,37 @@ export const constantRoutes = [
     component: _import('404'),
     hidden: true
   },
-
+  // 首次登录页面
+  {
+    path: '/first',
+    component: _import('dashboard/first-login'),
+    hidden: true,
+    meta: {
+      title: '首次访问'
+    }
+  },
+  // Home页面
   {
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      // component: () => _import('@/views/dashboard/index'),
-      component: _import('dashboard/index'),
-      meta: { title: ktflable.dashboard.TITLE, icon: 'dashboard' }
-    }]
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        // component: () => _import('@/views/dashboard/index'),
+        component: _import('dashboard/index'),
+        meta: { title: ktflable.dashboard.TITLE, icon: 'dashboard' }
+      }
+    ]
   }
 ]
 
 export async function dynamicRoutes() {
   const res = await nav()
-  if (res.code !== 200) { return [] }
+  if (res.code !== 200) {
+    return []
+  }
   const menuslist = res.data
   const menus = list2tree(menuslist)
   return buildDynamicRoutes(menus)
@@ -84,7 +97,10 @@ export function buildDynamicRoutes(menus) {
     // console.log('url:' + url)
     var route = {
       path: url,
-      component: children.length > 0 || isExternal(tmp.url) || tmp.url === '' ? Layout : (_import(`${tmp.url}` + '/index') || null),
+      component:
+        children.length > 0 || isExternal(tmp.url) || tmp.url === ''
+          ? Layout
+          : _import(`${tmp.url}` + '/index') || null,
       name: url.replace('/', '-'),
       meta: {
         title: tmp.name,
@@ -169,11 +185,12 @@ export function buildDynamicRoutes(menus) {
 //   { path: '*', redirect: '/404', hidden: true }
 // ]
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
 
 const router = createRouter()
 

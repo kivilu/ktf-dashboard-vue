@@ -1,60 +1,55 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input
-        v-model="listQuery.keyword"
-        placeholder="地区名称"
-        style="width: 200px;"
-        class="filter-item"
-        clearable
-        @keyup.enter.native="handleFilter"
-      />
+      <el-input v-model="listQuery.keyword"
+                placeholder="地区名称"
+                style="width: 200px;"
+                class="filter-item"
+                clearable
+                @keyup.enter.native="handleFilter" />
 
-      <el-button
-        v-waves
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >
+      <el-button v-waves
+                 class="filter-item"
+                 type="primary"
+                 icon="el-icon-search"
+                 @click="handleFilter">
         {{ LB.common.SEARCH }}
       </el-button>
-      <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="success"
-        icon=" el-icon-circle-plus-outline"
-        @click="handleCreate"
-      >
+      <el-button class="filter-item"
+                 style="margin-left: 10px;"
+                 type="success"
+                 icon=" el-icon-circle-plus-outline"
+                 @click="handleCreate">
         {{ LB.common.CREATE }}
       </el-button>
     </div>
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      row-key="id"
-      :element-loading-text="LB.common.LOADING"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%"
-      lazy
-      :load="load"
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    >
-      <el-table-column label="名称" align="left">
+    <el-table v-loading="listLoading"
+              :data="list"
+              row-key="id"
+              :element-loading-text="LB.common.LOADING"
+              border
+              fit
+              highlight-current-row
+              style="width: 100%"
+              lazy
+              :load="load"
+              :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+      <el-table-column label="名称"
+                       align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="代码" align="center">
+      <el-table-column label="代码"
+                       align="center">
         <template slot-scope="{ row }">
           <span>{{ row.code }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="级别" align="center">
+      <el-table-column label="级别"
+                       align="center">
         <template slot-scope="{ row }">
           <el-tag :type="row.type | regionTypeTagFilter">{{
             row.type | regionTypeFilter
@@ -74,46 +69,39 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" :label="LB.common.ACTIONS">
+      <el-table-column align="center"
+                       :label="LB.common.ACTIONS">
         <template slot-scope="{ row }">
-          <el-button
-            v-if="isAccess(module, 'update')"
-            type="text"
-            size="small"
-            @click="handleUpdate(row)"
-          >
+          <el-button v-if="isAccess(module, 'update')"
+                     type="text"
+                     size="small"
+                     @click="handleUpdate(row)">
             <i class="el-icon-edit" />
           </el-button>
-          <el-button
-            v-if="isAccess(module, 'delete')"
-            type="text"
-            size="small"
-            @click="handleDelete(row)"
-          >
+          <el-button v-if="isAccess(module, 'delete')"
+                     type="text"
+                     size="small"
+                     @click="handleDelete(row)">
             <i class="el-icon-delete" />
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      v-show="total > listQuery.limit"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
+    <pagination v-show="total > listQuery.limit"
+                :total="total"
+                :page.sync="listQuery.page"
+                :limit.sync="listQuery.limit"
+                @pagination="getList" />
 
-    <add-or-update
-      v-show="dialogFormVisible"
-      ref="addOrUpdate"
-      :dialog-status="dialogStatus"
-      @refreshDataList="getList"
-    />
+    <add-or-update v-show="dialogFormVisible"
+                   ref="addOrUpdate"
+                   :dialog-status="dialogStatus"
+                   @refreshDataList="getList" />
   </div>
 </template>
 
 <script>
-import { page, remove, getChildren, REGION_TYPES } from '@/api/sys/region'
+import { tops, remove, getChildren, REGION_TYPES } from '@/api/sys/region'
 import { list2tree, childrenOfTree } from '@/utils'
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -141,7 +129,7 @@ export default {
       listLoading: true,
       listQuery: {
         keyword: '',
-        pid: '86',
+        pid: 86,
         page: 1,
         limit: 20
       },
@@ -163,15 +151,19 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      page(this.listQuery).then(({ code, msg, data }) => {
-        if (code === 200) {
-          this.list = this.listQuery.keyword ? list2tree(data.list) : data.list
-          this.total = data.total
-        } else {
-          this.$message.error(msg)
-        }
-        this.listLoading = false
-      })
+      tops(this.listQuery)
+        .then(({ code, msg, data }) => {
+          if (code === 200) {
+            this.list = data.list
+            this.total = data.total
+          } else {
+            this.$message.error(msg)
+          }
+          this.listLoading = false
+        })
+        .catch(() => {
+          this.listLoading = false
+        })
     },
     load(row, treeNode, resolve) {
       if (this.listQuery.keyword) {

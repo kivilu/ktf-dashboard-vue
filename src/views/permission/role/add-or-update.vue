@@ -79,7 +79,7 @@ export default {
         name: '',
         description: '',
         status: 0,
-        resourceIdList: []
+        resourceIds: []
       },
       textMap: {
         update: '修改角色',
@@ -154,7 +154,7 @@ export default {
       })
     },
     saveOrUpdate() {
-      this.dataForm.resourceIdList = [].concat(
+      this.dataForm.resourceIds = [].concat(
         this.$refs.menuTree.getCheckedKeys(),
         this.$refs.menuTree.getHalfCheckedKeys()
       )

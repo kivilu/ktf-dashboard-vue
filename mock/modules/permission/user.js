@@ -1,6 +1,6 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('user.json')
 // console.log(datalist)
@@ -16,7 +16,7 @@ var tokens = [
   { id: 1253152808568999938, token: 'reviewer_key-token' }
 ]
 
-export function getUser(token) {
+function getUser(token) {
   var item = tokens.find(el => el.token === token)
 
   var info = datalist.find(el => el.id == item.id)
@@ -25,19 +25,23 @@ export function getUser(token) {
   return info
 }
 
-export default [
+module.exports = [
+  getUser,
   // user login
   {
     url: `${URL.permission.user.LOGIN}`,
     type: 'post',
     response: config => {
-      const { username, password } = config.body
+      console.log('------login----')
+      console.log(config.body)
+      const { userName, password } = config.body
 
-      console.log('username: ' + username + ' password: ' + password)
+      console.log('userName: ' + userName + ' password: ' + password)
 
-      var user = datalist.find(el => el.loginName === username)
+      var user = datalist.find(el => el.loginName === userName)
       // 用户不存在
-      if (!user || password !== '111111') {
+      // 111111的sm3结果 9ftyBiqx1t3Av+y4fcMr7G53P1heHLv5PeOUCBwuDzc= 
+      if (!user || password !== '9ftyBiqx1t3Av+y4fcMr7G53P1heHLv5PeOUCBwuDzc=') {
         return {
           code: 401,
           msg: 'Account and password are incorrect.'
@@ -207,7 +211,7 @@ export default [
       console.log(config.query)
 
       var turl = config.url
-      const key = `${process.env.VUE_APP_BASE_API}/sys/user/delete/`
+      const key = `${process.env.VUE_APP_BASE_API}/permission/user/delete/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 
@@ -241,6 +245,72 @@ export default [
 
       datalist = datalist.filter(item => !config.data.includes(item.id))
       console.log(datalist)
+
+      return {
+        code: 200,
+        msg: '成功',
+        data: null
+      }
+    }
+  },
+  // PASSWORD
+  {
+    url: `${URL.permission.user.PASSWORD}`,
+    type: 'post',
+    response: config => {
+      const token = config.headers['x-access-token']
+
+      // mock error
+      if (!token) {
+        return {
+          code: 403,
+          msg: '没有权限访问'
+        }
+      }
+
+      return {
+        code: 200,
+        msg: '成功',
+        data: null
+      }
+    }
+  },
+  // PASSWORD_RESET
+  {
+    url: `${URL.permission.user.PASSWORD_RESET}`,
+    type: 'get',
+    response: config => {
+      const token = config.headers['x-access-token']
+
+      // mock error
+      if (!token) {
+        return {
+          code: 403,
+          msg: '没有权限访问'
+        }
+      }
+
+      return {
+        code: 200,
+        msg: '成功',
+        data: null
+      }
+    }
+  },
+  // PASSWORD_RESET
+  {
+    url: `${URL.permission.user.PASSWORD_RESET}`,
+    type: 'post',
+    response: config => {
+      const token = config.headers['x-access-token']
+
+      // mock error
+      if (!token) {
+        return {
+          code: 403,
+          msg: '没有权限访问'
+        }
+      }
 
       return {
         code: 200,

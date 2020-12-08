@@ -1,16 +1,16 @@
-import Mock from 'mockjs'
-import { param2Obj } from '../src/utils'
+const Mock = require('mockjs')
+const { param2Obj } = require('./utils')
 
-import user from './modules/permission/user'
-import dic from './modules/sys/dic'
-import menu from './modules/permission/menu'
-import role from './modules/permission/role'
-import corp from './modules/org/corp'
-import dept from './modules/org/dept'
-import title from './modules/org/title'
-import log from './modules/sys/log'
-import industry from './modules/sys/industry'
-import region from './modules/sys/region'
+const user = require('./modules/permission/user')
+const dic = require('./modules/sys/dic')
+const menu = require('./modules/permission/menu')
+const role = require('./modules/permission/role')
+const corp = require('./modules/org/corp')
+const dept = require('./modules/org/dept')
+const title = require('./modules/org/title')
+const log = require('./modules/sys/log')
+const industry = require('./modules/sys/industry')
+const region = require('./modules/sys/region')
 // --APPEND NEW IMPORT HERE--
 
 const mocks = [
@@ -31,11 +31,11 @@ const mocks = [
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,
 // which will cause many of your third-party libraries to be invalidated(like progress event).
-export function mockXHR() {
+function mockXHR () {
   // mock patch
   // https://github.com/nuysoft/Mock/issues/300
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send
-  Mock.XHR.prototype.send = function() {
+  Mock.XHR.prototype.send = function () {
     if (this.custom.xhr) {
       this.custom.xhr.withCredentials = this.withCredentials || false
 
@@ -46,10 +46,12 @@ export function mockXHR() {
     this.proxy_send(...arguments)
   }
 
-  function XHR2ExpressReqWrap(respond) {
-    return function(options) {
+  function XHR2ExpressReqWrap (respond) {
+    return function (options) {
       let result = null
       if (respond instanceof Function) {
+        //console.log('----------options----')
+        //console.log(options)
         const { body, type, url } = options
         // https://expressjs.com/en/4x/api.html#req
         result = respond({
@@ -73,22 +75,7 @@ export function mockXHR() {
   }
 }
 
-// for mock server
-const responseFake = (url, type, respond) => {
-  // console.log('---Mock URL RegExp---')
-  // console.log(url)
-  return {
-    url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
-    type: type || 'get',
-    response(req, res) {
-      console.log('mock request invoke:' + req.path)
-      res.json(
-        Mock.mock(respond instanceof Function ? respond(req, res) : respond)
-      )
-    }
-  }
+module.exports = {
+  mocks,
+  mockXHR
 }
-
-export default mocks.map(route => {
-  return responseFake(route.url, route.type, route.response)
-})

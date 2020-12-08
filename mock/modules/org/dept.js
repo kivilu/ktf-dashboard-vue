@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('dept.json')
 
-export default [
+module.exports = [
   // get dept info
   {
     url: `${URL.org.dept.GET_INFO}\.*`,
@@ -34,9 +34,9 @@ export default [
       }
     }
   },
-  // query dept by page
+  // TOPS
   {
-    url: `${URL.org.dept.PAGE}`,
+    url: `${URL.org.dept.TOPS}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -51,8 +51,8 @@ export default [
 
       console.log(config.query)
 
+      var pid = 0
       var keyword = config.query.keyword || ''
-      var pid = config.query.pid || 0
       var end = config.query.page * config.query.limit
       var begin = end - config.query.limit
       begin = begin < 0 ? 0 : begin
@@ -62,17 +62,11 @@ export default [
         result = datalist.filter(item => item.parentId == pid)
         result = result.slice(begin, end)
       } else {
-        result = datalist.filter(item => item.varName.includes(keyword))
+        var targets = datalist.filter(item => item.name.includes(keyword))
+        var rids = getParents(pid, datalist, targets)
+        result = datalist.filter(item => rids.includes(item.id))
+
         result = result.slice(begin, end)
-        // 查找没有包含的父节点
-        var parents = []
-        result.forEach(element => {
-          if (!result.find(item => item.id === element.parentId)) {
-            var parent = datalist.find(item => item.id === element.parentId)
-            parents.push(parent)
-          }
-        })
-        result = result.concat(parents)
       }
 
       result.forEach(element => {

@@ -70,27 +70,6 @@
     "varValue": ""
   },
   {
-    "id": "9",
-    "parentId": "1",
-    "varCode": "com.ins.kms.controller.KmsIdentifierController",
-    "varName": "标识",
-    "varValue": ""
-  },
-  {
-    "id": "10",
-    "parentId": "1",
-    "varCode": "com.ins.kms.controller.KmsServiceController",
-    "varName": "密钥服务",
-    "varValue": ""
-  },
-  {
-    "id": "11",
-    "parentId": "1",
-    "varCode": "com.ins.kms.controller.KmsKeyController",
-    "varName": "密钥",
-    "varValue": ""
-  },
-  {
     "id": "12",
     "parentId": "0",
     "varCode": "USERTYPE_ROLE_MAP",
@@ -129,7 +108,7 @@
     "id": "17",
     "parentId": "12",
     "varCode": "7",
-    "varName": "REVIEWER_KEY",
+    "varName": "REVIEWER",
     "varValue": ""
   },
   {
@@ -267,16 +246,6 @@
     "gmtUpdate": "2019-11-08T20:48:38"
   },
   {
-    "id": "32",
-    "parentId": "31",
-    "varCode": "com.ins.kms.controller.KmsKeyController",
-    "varName": "密钥管理",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T18:13:22",
-    "gmtUpdate": "2019-11-04T18:13:22"
-  },
-  {
     "id": "33",
     "parentId": "32",
     "varCode": "applyNew",
@@ -407,66 +376,6 @@
     "gmtUpdate": "2019-11-08T20:42:15"
   },
   {
-    "id": "46",
-    "parentId": "20",
-    "varCode": "deleteKey",
-    "varName": "删除",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T18:17:09",
-    "gmtUpdate": "2019-11-04T18:31:11"
-  },
-  {
-    "id": "47",
-    "parentId": "20",
-    "varCode": "deleteKeys",
-    "varName": "批量删除",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T18:18:08",
-    "gmtUpdate": "2019-11-04T18:31:19"
-  },
-  {
-    "id": "48",
-    "parentId": "20",
-    "varCode": "downloadKey",
-    "varName": "下载",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T18:18:34",
-    "gmtUpdate": "2019-11-04T18:31:05"
-  },
-  {
-    "id": "49",
-    "parentId": "1",
-    "varCode": "com.ins.kms.controller.KmsEchartsController",
-    "varName": "Echarts统计",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T22:56:19",
-    "gmtUpdate": "2019-11-04T22:56:19"
-  },
-  {
-    "id": "50",
-    "parentId": "20",
-    "varCode": "statisKeyRecent7Days",
-    "varName": "近七天密钥图表",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-04T22:57:57",
-    "gmtUpdate": "2019-11-04T22:57:57"
-  },
-  {
-    "id": "51",
-    "parentId": "1",
-    "varCode": "com.ins.kms.controller.KmsAuditLogController",
-    "varName": "审计日志",
-    "varValue": "",
-
-    "gmtCreate": "2019-11-07T21:28:44",
-    "gmtUpdate": "2019-11-07T21:30:30"
-  },
-  {
     "id": "52",
     "parentId": "20",
     "varCode": "audit",
@@ -478,41 +387,6 @@
     "parentId": "20",
     "varCode": "info",
     "varName": "详情查询",
-    "varValue": ""
-  },
-  {
-    "id": "54",
-    "parentId": "20",
-    "varCode": "keyDownloadComplete",
-    "varName": "下载完成",
-    "varValue": ""
-  },
-  {
-    "id": "55",
-    "parentId": "20",
-    "varCode": "revokeKey",
-    "varName": "吊销密钥",
-    "varValue": ""
-  },
-  {
-    "id": "57",
-    "parentId": "32",
-    "varCode": "revokeKey",
-    "varName": "吊销标识",
-    "varValue": ""
-  },
-  {
-    "id": "58",
-    "parentId": "32",
-    "varCode": "updateKey",
-    "varName": "更新密钥",
-    "varValue": ""
-  },
-  {
-    "id": "59",
-    "parentId": "20",
-    "varCode": "updateKey",
-    "varName": "更新",
     "varValue": ""
   }
 ]

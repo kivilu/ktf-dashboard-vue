@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
-import URL from '../../../src/api/url'
-import { loadjson } from '../util'
+const Mock = require('mockjs')
+const URL = require( '../url')
+const { loadjson } = require('../util')
 
 var datalist = loadjson('industry.json')
 
-export default [
+module.exports = [
   // get industry info
   {
     url: `${URL.sys.industry.GET_INFO}\.*`,
@@ -34,9 +34,9 @@ export default [
       }
     }
   },
-  // query industry by page
+  // TOPS
   {
-    url: `${URL.sys.industry.PAGE}`,
+    url: `${URL.sys.industry.TOPS}`,
     type: 'get',
     response: config => {
       const token = config.headers['x-access-token']
@@ -51,37 +51,25 @@ export default [
 
       // console.log(config.query)
 
+      var pid = 0
       var keyword = config.query.keyword || ''
-      var pid = config.query.pid || 0
       var end = config.query.page * config.query.limit
       var begin = end - config.query.limit
       begin = begin < 0 ? 0 : begin
 
-      // console.log('begin:' + begin)
-      // console.log('end:' + end)
+      console.log('keyword:' + keyword)
 
       var result = []
       if (keyword === '') {
         result = datalist.filter(item => item.pid == pid)
+        console.log(result)
         result = result.slice(begin, end)
       } else {
-        result = datalist.filter(item => item.name.includes(keyword))
+        var targets = datalist.filter(item => item.name.includes(keyword))
+        var rids = getParents(pid, datalist, targets, { pid: 'pid' })
+        result = datalist.filter(item => rids.includes(item.id))
+
         result = result.slice(begin, end)
-
-        // 查找没有包含的父节点
-        var parents = []
-        result.forEach(element => {
-          if (!result.find(item => item.id === element.pid)) {
-            var parent = datalist.find(item => item.id === element.pid)
-            if (parent) {
-              parents.push(parent)
-            }
-          }
-        })
-
-        if (parents.length > 0) {
-          result = result.concat(parents)
-        }
       }
 
       result.forEach(ele => {
@@ -151,7 +139,7 @@ export default [
       var turl = config.url
       const key = `${
         process.env.VUE_APP_BASE_API
-      }/sys/industry/getParentBrothers/`
+        }/sys/industry/getParentBrothers/`
       var tmp = turl.replace(key, '')
       const id = tmp.replace(/([0-9a-zA-Z]+)?(\?[0-9a-zA-Z&=]+)?/gi, '$1')
 

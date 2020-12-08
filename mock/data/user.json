@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "applicationId": "1",
+    "appId": "1",
     "userType": 0,
     "name": "超级管理员",
     "loginName": "system",
@@ -22,7 +22,7 @@
   },
   {
     "id": "1267384675773571073",
-    "applicationId": "1",
+    "appId": "1",
     "userType": 1,
     "name": "admin-sys",
     "loginMode": "02",
@@ -43,9 +43,9 @@
   },
   {
     "id": "1267687552772100097",
-    "applicationId": "1",
+    "appId": "1",
     "userType": 2,
-    "name": "密钥审核员",
+    "name": "审核员",
     "loginMode": "02",
     "loginName": "reviewer",
     "roleIds": ["7"],

@@ -9,11 +9,17 @@ const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
+  // `paramsSerializer` 是一个负责 `params` 序列化的函数
+  // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
+  // paramsSerializer: function(params) {
+  //   return Qs.stringify(params, { arrayFormat: 'brackets' })
+  // }
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
+    //console.log(config) // for debug
     // do something before request is sent
     config.params = adornParams(config.params)
 
@@ -46,26 +52,29 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 200 || res.code === 201) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
+    if (res.code !== 200 && res.code !== 202) {
       // 401- token失效, 403-无权限
       if (res.code === 401 || res.code === 403) {
         // to re-login
-        MessageBox.confirm('您当前的登录状态已经失效, 点击【取消】留在当前页, 或者重新登录系统。', '退出确认', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+        MessageBox.confirm(
+          '您当前的登录状态已经失效, 点击【取消】留在当前页, 或者重新登录系统。',
+          '退出确认',
+          {
+            confirmButtonText: '重新登录',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
           store.dispatch('user/resetToken').then(() => {
             location.reload() // 刷新页面
           })
+        })
+      } else {
+        Message({
+          message: res.msg || 'Error',
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject(new Error(res.message || 'Error'))

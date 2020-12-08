@@ -1,36 +1,30 @@
 <template>
   <div>
-    <el-popover
-      ref="treePopover"
-      v-model="popoverVisible"
-      placement="bottom-start"
-      trigger="click"
-    >
-      <el-tree
-        ref="dataTree"
-        :data="treeDatas"
-        :props="props"
-        :lazy="lazy"
-        :load="load"
-        :node-key="nodeKey"
-        :default-expand-all="defaultExpandAll"
-        :highlight-current="true"
-        :expand-on-click-node="false"
-        :filter-node-method="filterNode"
-        @current-change="currentChangeHandle"
-      />
+    <el-popover ref="treePopover"
+                v-model="popoverVisible"
+                placement="bottom-start"
+                trigger="click">
+      <el-tree ref="dataTree"
+               :data="treeDatas"
+               :props="props"
+               :lazy="lazy"
+               :load="load"
+               :node-key="nodeKey"
+               :default-expand-all="defaultExpandAll"
+               :highlight-current="true"
+               :expand-on-click-node="false"
+               :filter-node-method="filterNode"
+               @current-change="currentChangeHandle" />
     </el-popover>
-    <el-input
-      v-model="myValue.label"
-      v-popover:treePopover
-      :placeholder="placeholder"
-      :readonly="readonly"
-      :required="required"
-      :disabled="disabled"
-      :clearable="clearable"
-      :style="myStyle"
-      class="menu-list__input"
-    />
+    <el-input v-model="myValue.label"
+              v-popover:treePopover
+              :placeholder="placeholder"
+              :readonly="readonly"
+              :required="required"
+              :disabled="disabled"
+              :clearable="clearable"
+              :style="myStyle"
+              class="menu-list__input" />
   </div>
 </template>
 
@@ -61,10 +55,6 @@ export default {
     required: {
       type: Boolean,
       default: true
-    },
-    rootId: {
-      type: [String, Number],
-      default: 0
     },
     treeDatas: {
       type: Array,
@@ -98,6 +88,10 @@ export default {
     validateEvent: {
       type: Boolean,
       default: true
+    },
+    loadInit: {
+      type: Function,
+      default: function() {}
     },
     getChildren: {
       type: Function,
@@ -154,14 +148,18 @@ export default {
     async load(node, resolve) {
       const { level } = node
 
-      const { code, msg, data } = await this.getChildren(
-        level === 0 ? this.rootId : node.data.id
-      )
-      if (code === 200) {
-        // console.log(data)
+      if (level === 0) {
+        //console.log('loadInit')
+        const data = await this.loadInit()
+
         resolve(data)
       } else {
-        this.$message.error(msg)
+        const { code, msg, data } = await this.getChildren(node.data.id)
+        if (code === 200) {
+          resolve(data)
+        } else {
+          this.$message.error(msg)
+        }
       }
     },
     async loadNodeData(id) {
@@ -191,11 +189,8 @@ export default {
       } else {
         this.myValue['label'] = ''
         this.myValue['value'] = ''
-        if (this.rootId != newValue.value) {
-          // console.log('rootID:' + this.rootId)
-          // console.log(newValue)
-          const data = await this.loadNodeData(newValue.value)
-
+        const data = await this.loadNodeData(newValue.value)
+        if (data) {
           this.myValue['label'] = data[this.props.label] || ''
           this.myValue['value'] = data[this.props.value]
         }
@@ -206,9 +201,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu-list__input {
-  > .el-input__inner {
-    cursor: pointer;
+  .menu-list__input {
+    > .el-input__inner {
+      cursor: pointer;
+    }
   }
-}
 </style>
